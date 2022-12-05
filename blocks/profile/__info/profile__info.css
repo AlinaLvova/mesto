@@ -1,0 +1,13 @@
+.profile__info{
+    margin-left: 30px;
+    display: grid;
+    grid-column-gap: 18px;
+    grid-row-gap: 16px;
+    grid-template:
+        "name button"
+        "description description"/ 
+        auto 24px;
+    align-items: baseline;
+    align-content: center;
+    max-width: 500px;
+}
