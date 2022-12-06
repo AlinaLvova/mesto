@@ -1,6 +1,7 @@
 .card{
     width: 282px;
     height: 361px;
-    /* position: relative; */
+    border-radius: 10px;
+    overflow: hidden;
     list-style: none;
 }

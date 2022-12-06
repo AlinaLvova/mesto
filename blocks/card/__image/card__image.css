@@ -3,8 +3,8 @@
     height: 100%;
     display: block;
     height: 282px;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    /* border-top-left-radius: 10px; */
+    /* border-top-right-radius: 10px; */
     margin: 0;
     padding: 0;
     object-fit: cover;

@@ -2,13 +2,21 @@
     width: 150px;
     height: 50px;
     border: 2px solid white; 
-    background-color: #000;
+    background-color: transparent;
     padding: 0;
+    cursor: pointer;
     box-sizing: border-box;
+    background-image: url(../../../images/add-button.svg);
+    background-repeat: no-repeat;
+    background-position: center center;
 }
 
-@media screen and (max-width: 780px) {
+.profile__add-button:hover {
+    opacity: 0.6;
+}
+
+@media screen and (max-width: 320px) {
     .profile__add-button{
-        width: 282px; 
+        width: 100%; 
     }
 }

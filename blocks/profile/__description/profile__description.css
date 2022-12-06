@@ -8,18 +8,27 @@
     color: #fff;
     grid-area: description;
     width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-@media screen and (max-width: 780px){
-    .profile__description{
-        font-size: 16px;
-        line-height: 19px;
+@media screen and (max-width: 939px) {
+    .profile__description {
+        font-size: calc(100vw * 18 / 880 * 1.5);
+        line-height: calc(100vw * 22 / 880 * 1.5);
+    }
+}
+
+@media screen and (max-width: 870px) {
+    .profile__description {
         text-align: center;
     }
 }
 
-@media screen and (max-width: 680px){
-    .profile__description{
+@media screen and (max-width: 320px) {
+    .profile__description {
+        text-align: center;
         font-size: 14px;
         line-height: 17px;
     }

@@ -1,4 +1,4 @@
-.content{
-    /* max-width: 880px; */
-    margin: 0 auto;
+.content {
+    /* margin: 0 auto; */
+    flex: 1;
 }

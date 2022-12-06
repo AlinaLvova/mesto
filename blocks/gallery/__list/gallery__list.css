@@ -3,7 +3,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     padding: 0;
-    justify-content: space-evenly;
+    justify-content: center;
     gap: 20px 17px;
     margin: 0;
     /* min-width: 282px; */

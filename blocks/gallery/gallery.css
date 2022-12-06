@@ -1,9 +1,11 @@
 .gallery {
-    margin: 51px auto 0;
-    max-width: 880px;
+    background: bisque;
+    padding-top: 50px;
+    /* max-width: 100%; */
+    /* display: none; */
 }
 
-@media screen and (max-width: 970px) {
+/* @media screen and (max-width: 970px) {
     .gallery {
         max-width: calc(95% - 50px);
     }
@@ -13,4 +15,4 @@
     .gallery {
         margin: 0 minmax(19px, auto) 0;
     }
-}
+} */

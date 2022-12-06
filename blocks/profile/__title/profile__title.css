@@ -7,16 +7,19 @@
     color: #fff;
     grid-area: name;
     width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
 }
 
-@media screen and (max-width: 780px){
+@media screen and (max-width: 940px){
     .profile__title{
-        font-size: 36px;
-        line-height: 40px;
+        font-size: calc(100vw * 42 / 880 * 1.25);
+        line-height: calc(100vw * 48 / 880 * 1.25);
     }
 }
 
-@media screen and (max-width: 680px){
+@media screen and (max-width: 320px){
     .profile__title{
         font-size: 27px;
         line-height: 33px;
