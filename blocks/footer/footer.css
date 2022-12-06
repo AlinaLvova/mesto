@@ -2,3 +2,15 @@
     margin: 66px auto 60px;
     max-width: 880px;
 }
+
+@media screen and (max-width: 970px) {
+    .footer{
+        max-width: calc(95% - 50px);
+    }
+}
+
+@media screen and (max-width: 780px) {
+    .footer{
+        
+    }
+}

@@ -9,3 +9,18 @@
     grid-area: description;
     width: 100%;
 }
+
+@media screen and (max-width: 780px){
+    .profile__description{
+        font-size: 16px;
+        line-height: 19px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 680px){
+    .profile__description{
+        font-size: 14px;
+        line-height: 17px;
+    }
+}

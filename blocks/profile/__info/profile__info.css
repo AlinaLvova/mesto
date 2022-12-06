@@ -12,3 +12,9 @@
     justify-content: start;
     align-items: baseline;
 }
+
+@media screen and (max-width: 780px) {
+    .profile__info{
+        margin: 26px auto 36px;
+    }
+}

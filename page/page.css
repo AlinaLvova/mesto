@@ -8,3 +8,8 @@
     font-family: "Inter", Arial, Helvetica, sans-serif;
     text-rendering: optimizeLegibility;
 }
+
+*{
+    border: 1px red solid;
+
+}

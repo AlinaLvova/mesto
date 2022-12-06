@@ -8,3 +8,17 @@
     grid-area: name;
     width: 100%;
 }
+
+@media screen and (max-width: 780px){
+    .profile__title{
+        font-size: 36px;
+        line-height: 40px;
+    }
+}
+
+@media screen and (max-width: 680px){
+    .profile__title{
+        font-size: 27px;
+        line-height: 33px;
+    }
+}
