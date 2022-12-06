@@ -8,5 +8,6 @@
     align-items: center;
     box-sizing: border-box;
     margin: 0;
+    max-height: 79px;
     padding: 25px 15px 31px 21px;
 }

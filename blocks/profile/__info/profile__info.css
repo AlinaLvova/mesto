@@ -2,7 +2,7 @@
     margin-left: 30px;
     display: grid;
     grid-column-gap: 18px;
-    grid-row-gap: 16px;
+    grid-row-gap: 12px;
     grid-template:
         "name button"
         "description description"/ 

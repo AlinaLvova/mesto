@@ -1,6 +1,6 @@
 .card{
-    max-width: 282px;
-    min-height: 361px;
+    width: 282px;
+    height: 361px;
     /* position: relative; */
-    list-style: none;   
+    list-style: none;
 }
