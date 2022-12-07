@@ -1,7 +1,10 @@
 .card__like{
+    padding: 0;
     width: 22px;
     height: 19px;
+    background-size: auto;
     margin-right: 5px;
-    margin-bottom: -5px;
-    background-image: url(./../../../images/like.svg);
+    margin-top: 1px;
+    background-color: transparent;
+    border: none;
 }

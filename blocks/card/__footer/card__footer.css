@@ -1,13 +1,8 @@
 .card__footer{
-    background-color: #fff;
     display: flex;
-    /* border-bottom-left-radius: 10px; */
-    /* border-bottom-right-radius: 10px; */
+    padding: 20px 15px 25px 21px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    box-sizing: border-box;
-    margin: 0;
-    max-height: 79px;
-    padding: 25px 15px 31px 21px;
+    /* gap: 30px; */
 }

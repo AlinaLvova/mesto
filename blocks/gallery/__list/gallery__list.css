@@ -1,17 +1,15 @@
 .gallery__list {
-    /* display: flex;
+    display: flex;
     flex-direction: row;
-    flex-wrap: wrap; */
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(282px, 1fr));
-    padding: 0;
-    justify-content: space-between;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
     gap: 20px 17px;
     margin: 0;
-    /* min-width: 282px; */
     justify-items: center;
-}
-
+    list-style: none;
+    padding: 0;
+    }
+/* 
 @media screen and (max-width: 670px) {
     .gallery__list {
         padding: 0 19px;
@@ -22,4 +20,4 @@
     .gallery__list {
         padding: 0;
     }
-}
+} */

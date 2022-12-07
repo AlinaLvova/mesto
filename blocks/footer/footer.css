@@ -3,26 +3,14 @@
     /* max-width: 100%; */
 }
 
-@media screen and (max-width:940px) {
+@media screen and (max-width:970px) {
     .footer {
         padding: 66px 19px 60px;
     }
 }
 
-@media screen and (max-width:320px) {
+@media screen and (max-width:870px) {
     .footer {
         padding: 48px 19px 36px;
     }
 }
-
-/* @media screen and (max-width: 970px) {
-    .footer{
-        max-width: calc(95% - 50px);
-    }
-}
-
-@media screen and (max-width: 780px) {
-    .footer{
-        
-    }
-} */

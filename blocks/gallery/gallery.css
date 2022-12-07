@@ -1,17 +1,15 @@
 .gallery {
-    background: bisque;
     padding-top: 50px;
-    /* max-width: 100%; */
-    /* display: none; */
+    max-width: 100%;
 }
 
-/* @media screen and (max-width: 970px) {
+@media screen and (max-width: 970px) {
     .gallery {
-        max-width: calc(95% - 50px);
+        padding: 36px 19px 0;
     }
 }
 
-@media screen and (max-width: 395px) {
+/* @media screen and (max-width: 395px) {
     .gallery {
         margin: 0 minmax(19px, auto) 0;
     }

@@ -1,20 +1,15 @@
 .profile__info{
-    display: grid;
-    grid-column-gap: 18px;
-    grid-row-gap: 12px;
-    grid-template:
-        "name button"
-        "description description"/ 
-        auto 24px;
-    max-width: 100%;
-    align-content: center;
-    justify-content: start;
-    align-items: baseline;
+    display: flex;
+    gap: 13px;
+    max-width: 500px;
+    align-items: flex-start;
+    width: 100%;
+    align-content: stretch;
+    flex-direction: column;
 }
 
-@media screen and (max-width: 870px){
-    .profile__info{
-        padding: 26px 0 36px;
-        flex-shrink: 0;
+@media screen and (max-width: 770px) {
+    .profile__info {
+        gap: 9px 7px;
     }
 }

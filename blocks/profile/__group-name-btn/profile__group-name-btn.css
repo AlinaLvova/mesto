@@ -1,0 +1,13 @@
+.profile__group-name-btn{
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: 18px;
+}
+
+@media screen and (max-width: 870px) {
+    .profile__group-name-btn {
+        gap: 10px;
+        padding-left: 25px;
+    }
+}

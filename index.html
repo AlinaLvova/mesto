@@ -3,8 +3,8 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta title="viewport" content="width=device-width, initial-scale=1.0">
-    <meta title="author" content="Alina Lvova">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Alina Lvova">
     <title>Mesto</title>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
@@ -18,83 +18,74 @@
         <main class="content">
             <section class="profile">
                 <div class="profile__info-group">
-                    <img src="./images/jakiv-kusto.jpg" alt="Аватар" class="profile__avatar">
+                    <img src="../image/jakiv-kusto.jpg" alt="Аватар" class="profile__avatar">
                     <div class="profile__info">
-                        <p class="profile__title">
-                            Жак-Ив Кусто
-                        </p>
-                        <button class="profile__edit-button" type="button">
-                        </button>
+                        <div class="profile__group-name-btn">
+                            <p class="profile__title">
+                                Жак-Ив Кусто
+                            </p>
+                            <button class="profile__edit-button link" type="button"></button>
+                        </div>
                         <p class="profile__description">
                             Исследователь океана
                         </p>
                     </div>
                 </div>
-                <button class="profile__add-button" type="button">
-                </button>
+                <button class="profile__add-button link" type="button"></button>
             </section>
 
-            <section class="gallery" aria-label="Галерея фото-карточек">
+            <section class="gallery">
                 <ul class="gallery__list">
                     <li class="card">
                         <img src="./images/karachaevsk.jpg" alt="" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Карачаевск</p>
-                            <div class="card__like">
-
-                            </div>
+                            <button class="card__like link card__like-active" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/elbrus-mountain.png" alt="" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Гора Эльбрус</p>
-                            <div class="card__like">
-
-                            </div>
+                            <button class="card__like link card__like-disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/dombai-mountain.png" alt="" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Домбай</p>
-                            <div class="card__like">
-
-                            </div>
+                            <button class="card__like link card__like-disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/elbrus-mountain.png" alt="" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Гора Эльбрус</p>
-                            <div class="card__like">
-
-                            </div>
+                            <button class="card__like link card__like-disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/dombai-mountain.png" alt="" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Домбай</p>
-                            <div class="card__like">
-
-                            </div>
+                            <button class="card__like link card__like-disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/karachaevsk.jpg" alt="" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Карачаево-Черкессия</p>
-                            <div class="card__like">
-
-                            </div>
+                            <button class="card__like link card__like-disabled" type="button"></button>
                         </div>
                     </li>
                 </ul>
             </section>
         </main>
+
         <footer class="footer">
-            <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+            <p class="footer__copyright">
+                © 2020 Mesto Russia
+            </p>
         </footer>
     </div>
 </body>

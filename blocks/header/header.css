@@ -1,17 +1,17 @@
 .header{
-    padding: 45px 0 41px;
+    padding: 0 0 41px;
     border-bottom: 1px solid #545454;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-@media screen and (max-width: 940px){
-    .header{
-        padding: 45px 27px 41px;
+@media screen and (max-width: 970px) {
+    .header {
+        padding: 0 19px 41px;
     }
 }
 
-@media screen and (max-width: 320px){
-    .header{
-        padding: 28px 27px 31px;
+@media screen and (max-width: 770px) {
+    .header {
+        padding: 0 27px 27px;
     }
 }

@@ -1,8 +1,12 @@
 .page__container{
+    min-width: 320px;
     max-width: 880px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    max-height: 100vh;
-    /* align-items: center; */
+    padding-top: 45px;
+}
+
+@media screen and (max-width: 770px) {
+    .page__container {
+        padding-top: 28px;
+    }
 }
