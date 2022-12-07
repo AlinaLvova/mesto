@@ -19,6 +19,14 @@
     }
 }
 
+@media screen and (max-width: 680px){
+    .profile__title{
+        font-size: calc(100vw * 27 / 320 * 1.1);
+        line-height: calc(100vw * 33 / 320 * 1.1);
+    
+    }
+}
+
 @media screen and (max-width: 320px){
     .profile__title{
         font-size: 27px;

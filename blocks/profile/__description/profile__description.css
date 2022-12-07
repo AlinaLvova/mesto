@@ -26,6 +26,13 @@
     }
 }
 
+@media screen and (max-width: 680px){
+    .profile__description{
+        font-size: calc(100vw * 14 / 320 * 1.2);
+        line-height: calc(100vw * 17 / 320 * 1.2);  
+    }
+}
+
 @media screen and (max-width: 320px) {
     .profile__description {
         text-align: center;
