@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Alina Lvova">
     <title>Mesto</title>
-    <script src="./scripts/index.js"></script>
     <link rel="stylesheet" href="./pages/index.css">
 </head>
 
@@ -19,17 +18,13 @@
         <main class="content">
             <section class="profile">
                 <div class="profile__info-group">
-                    <img src="../image/jakiv-kusto.jpg" alt="Аватар" class="profile__avatar">
+                    <img src="../image/jakiv-kusto.jpg" alt="Аватар. Портрет Жака Ива Кусто в красной шапке на фоне моря." class="profile__avatar">
                     <div class="profile__info">
                         <div class="profile__group-name-btn">
-                            <p class="profile__title">
-                                Жак-Ив Кусто
-                            </p>
+                            <h1 class="profile__name">Жак-Ив Кусто</h1>
                             <button class="profile__edit-button link" type="button"></button>
                         </div>
-                        <p class="profile__description">
-                            Исследователь океана
-                        </p>
+                        <p class="profile__description">Исследователь океана</p>
                     </div>
                 </div>
                 <button class="profile__add-button link" type="button"></button>
@@ -48,35 +43,35 @@
                         <img src="./images/elbrus-mountain.png" alt="Поле на закате на фоне гор" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Гора Эльбрус</p>
-                            <button class="card__like link card__like-disabled" type="button"></button>
+                            <button class="card__like link card__like_disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/dombai-mountain.png" alt="Горы крупным планом. Вид сверху." class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Домбай</p>
-                            <button class="card__like link card__like-disabled" type="button"></button>
+                            <button class="card__like link card__like_disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/elbrus-mountain.png" alt="Поле на закате на фоне гор" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Гора Эльбрус</p>
-                            <button class="card__like link card__like-disabled" type="button"></button>
+                            <button class="card__like link card__like_disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/dombai-mountain.png" alt="Горы крупным планом. Вид сверху." class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Домбай</p>
-                            <button class="card__like link card__like-disabled" type="button"></button>
+                            <button class="card__like link card__like_disabled" type="button"></button>
                         </div>
                     </li>
                     <li class="card">
                         <img src="./images/karachaevsk.jpg" alt="Церковь крупным планом на фоне гор" class="card__image">
                         <div class="card__footer">
                             <p class="card__title">Карачаево-Черкессия</p>
-                            <button class="card__like link card__like-disabled" type="button"></button>
+                            <button class="card__like link card__like_disabled" type="button"></button>
                         </div>
                     </li>
                 </ul>
@@ -84,11 +79,22 @@
         </main>
 
         <footer class="footer">
-            <p class="footer__copyright">
-                © 2020 Mesto Russia
-            </p>
+            <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
         </footer>
+
+        <div class="popup">
+            <div class="popup__container">
+                <button class="popup__close-btn link" type="button"></button>
+                <form class="popup__form" method="POST" name="edit-form">
+                    <h3 class="popup__title">Редактировать профиль</h3>
+                    <input id="input-name" name="user-name" class="popup__name popup__edit-form">
+                    <input id="input-descrpt" name="user-descrpt" class="popup__description popup__edit-form">
+                    <button class="popup__submit-btn link" type="submit">Сохранить</button>
+                </form>
+            </div>
+        </div>
     </div>
+    <script src="./scripts/index.js"></script>
 </body>
 
 </html>
