@@ -18,16 +18,11 @@
     }
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 870px) {
     .profile__name {
         width: 38vw;
         font-size: calc((100vw - 320px)/(880 - 320) * (42 - 27) + 27px);
         line-height: calc((100vw - 320px)/(880 - 320) * (48 - 33) + 33px);
-    }
-}
-
-@media screen and (max-width: 870px) {
-    .profile__name {
         text-align: center;
         width: 400px;
     }
