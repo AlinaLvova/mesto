@@ -1,0 +1,9 @@
+.popup__name{
+    margin-bottom: 78px;
+}
+
+@media screen and (max-width: 880px) {
+    .popup__name {
+        margin-top: -26px;
+    }
+}
