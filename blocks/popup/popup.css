@@ -11,4 +11,6 @@
     transition: all 0.5s ease;
     visibility: hidden;
     opacity: 0;
+    align-items: center;
+    justify-content: space-around;
 }

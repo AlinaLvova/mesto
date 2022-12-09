@@ -1,6 +1,5 @@
 .popup__edit-form{
         width: auto;
-        height: calc(100% - 70px);
         padding: 33px 36px 36px;
         display: flex;
         flex-direction: column;
@@ -11,11 +10,13 @@
         font-size: 14px;
         line-height: 17px;
         color: #000;
+        grid-area: edit-form;
+        background-color: #fff;
+        border-radius: 10px;
 }
 
 @media screen and (max-width: 880px){
     .popup__edit-form{
         padding: 25px 22px;
-        height: calc(100% - 50px);
     }
 }

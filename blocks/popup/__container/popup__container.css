@@ -1,18 +1,21 @@
 .popup__container{
-    width: 430px;
-    height: 330px;
-    background-color: #FFF;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    display: grid;
+    grid-template-columns: 32px 430px 32px;
+    grid-template-rows: 32px 330px;
+    grid-template-areas:
+        ". . close-btn"
+        ". edit-form .";
+    gap: 8px;
     z-index: 1;
-    border-radius: 10px;
 }
 
 @media screen and (max-width: 880px){
      .popup__container{
-        width: 282px;
-        height: 322px;
+        grid-template-columns: 282px;
+        grid-template-rows: 20px 322px;
+        gap: 16px;
+        grid-template-areas:
+           "close-btn"
+           "edit-form";
      }
 }
