@@ -1,5 +1,5 @@
 .footer__copyright {
-    font-family: 'Inter'; /*Альтернативный шрифт, а также семейство шрифтов были добавлены в .page ранее*/
+    font-family: 'Inter', Arial, Helvetica, sans-serif;; /*Альтернативный шрифт, а также семейство шрифтов были добавлены в .page ранее*/
     font-style: normal;
     font-weight: 400;
     font-size: 18px;

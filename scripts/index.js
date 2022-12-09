@@ -7,12 +7,10 @@ let nameInput = document.querySelector('#input-name');
 let descrptInput = document.querySelector('#input-descrpt');
 let nameProfile = document.querySelector('.profile__name');
 let descrptProfile = document.querySelector('.profile__description');
-let popupContainer = document.querySelector('.popup__container');
 
 console.log({formElement});
 
 function openPopup() {
-    event.preventDefault();    
     descrptInput.value = descrptProfile.textContent;
     nameInput.value = nameProfile.textContent;  
     popup.classList.add('popup_opened');
@@ -23,7 +21,7 @@ function closePopup(){
 }
 
 function saveInput (evt) {
-    evt.preventDefault(); 
+    event.preventDefault();    
     descrptProfile.textContent = descrptInput.value;
     nameProfile.textContent = nameInput.value; 
     closePopup(); 
