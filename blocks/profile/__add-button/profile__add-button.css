@@ -8,6 +8,7 @@
     background-image: url(../../../images/add-button.svg);
     background-repeat: no-repeat;
     background-position: center center;
+    border-radius: 2px;
 }
 
 @media screen and (max-width: 870px) {
