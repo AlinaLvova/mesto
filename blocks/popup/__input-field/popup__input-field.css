@@ -1,4 +1,4 @@
-.popup__edit-form_type_name {
+.popup__input-field {
     border-bottom: 1px solid rgba(0,0,0, 0.2);
     padding-bottom: 10px;
     border-top: none;
@@ -9,7 +9,7 @@
 }
 
 @media screen and (max-width: 880px){
-    .popup__edit-form_type_name {
+    .popup__input-field {
         margin: 0 0 32px;
     }
 }
