@@ -1,9 +1,10 @@
 const editButton = document.querySelector('.profile__edit-button');
 const popup = document.querySelector('.popup');
 const popupCloseBtn = document.querySelector('.popup__close-btn');
-let formElement = document.querySelector('.popup__form');
+
+let formElement = document.querySelector('.popup__edit-form');
 let nameInput = document.querySelector('#input-name');
-let jobInput = document.querySelector('#input-descrpt');
+let descrptInput = document.querySelector('#input-descrpt');
 let nameProfile = document.querySelector('.profile__name');
 let descrptProfile = document.querySelector('.profile__description');
 let popupContainer = document.querySelector('.popup__container');
@@ -12,7 +13,7 @@ console.log({formElement});
 
 function openPopup() {
     event.preventDefault();    
-    jobInput.value = descrptProfile.textContent;
+    descrptInput.value = descrptProfile.textContent;
     nameInput.value = nameProfile.textContent;  
     popup.classList.add('popup_opened');
 }
@@ -23,7 +24,7 @@ function closePopup(){
 
 function saveInput (evt) {
     evt.preventDefault(); 
-    descrptProfile.textContent = jobInput.value;
+    descrptProfile.textContent = descrptInput.value;
     nameProfile.textContent = nameInput.value; 
     console.log('me');
     closePopup(); 

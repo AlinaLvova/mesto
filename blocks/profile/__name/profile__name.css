@@ -6,42 +6,32 @@
     margin: 0 auto;
     color: #fff;
     grid-area: name;
-    max-width: 500px;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-}
-
-@media screen and (max-width: 970px) {
-    .profile__name {
-        max-width: 480px;
-    }
+    min-width: 10ch;
+    max-width: 16ch;
+    width: max-content;
 }
 
 @media screen and (max-width: 870px) {
     .profile__name {
-        width: 38vw;
         font-size: calc((100vw - 320px)/(880 - 320) * (42 - 27) + 27px);
         line-height: calc((100vw - 320px)/(880 - 320) * (48 - 33) + 33px);
         text-align: center;
-        min-width: 400px;
+        max-width: 19ch;
+        min-width: 11ch;
     }
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 550px) {
     .profile__name {
-        min-width: 300px;
+        max-width: 15ch;
     }
 }
 
-@media screen and (max-width: 450px) {
+@media screen and (max-width: 440px) {
     .profile__name {
-        min-width: 230px;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .profile__name {
-        min-width: 190px;
+        max-width: 13ch;
     }
 }

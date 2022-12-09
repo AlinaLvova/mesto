@@ -1,7 +1,21 @@
-.popup__edit-form {
-    border-bottom: 1px solid rgba(0,0,0, 0.2);
-    padding-bottom: 10px;
-    border-top: none;
-    border-left: none;
-    border-right: none;
+.popup__edit-form{
+        width: auto;
+        height: calc(100% - 70px);
+        padding: 33px 36px 36px;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        row-gap: 0;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 17px;
+        color: #000;
+}
+
+@media screen and (max-width: 880px){
+    .popup__edit-form{
+        padding: 25px 22px;
+        height: calc(100% - 50px);
+    }
 }

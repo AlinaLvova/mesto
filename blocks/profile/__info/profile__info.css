@@ -2,14 +2,15 @@
     display: flex;
     gap: 13px;
     max-width: 500px;
-    align-items: flex-start;
     width: 100%;
     align-content: stretch;
     flex-direction: column;
+    align-items: flex-start;
 }
 
-@media screen and (max-width: 770px) {
+@media screen and (max-width: 870px) {
     .profile__info {
         gap: 9px 7px;
+        align-items: center;
     }
 }

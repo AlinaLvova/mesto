@@ -18,7 +18,8 @@
         <main class="content">
             <section class="profile">
                 <div class="profile__info-group">
-                    <img src="./images/jakiv-kusto.jpg" alt="Аватар. Портрет Жака Ива Кусто в красной шапке на фоне моря." class="profile__avatar">
+                    <img src="./images/jakiv-kusto.jpg"
+                        alt="Аватар. Портрет Жака Ива Кусто в красной шапке на фоне моря." class="profile__avatar">
                     <div class="profile__info">
                         <div class="profile__group-name-btn">
                             <h1 class="profile__name">Жак-Ив Кусто</h1>
@@ -33,46 +34,64 @@
             <section class="gallery">
                 <ul class="gallery__list">
                     <li class="card">
-                        <img src="./images/karachaevsk.jpg" alt="Церковь крупным планом на фоне гор" class="card__image">
-                        <div class="card__footer">
-                            <p class="card__title">Карачаевск</p>
-                            <button class="card__like link card__like_disabled" type="button"></button>
-                        </div>
+                        <article>
+                            <img src="./images/karachaevsk.jpg" alt="Церковь крупным планом на фоне гор"
+                                class="card__image">
+                            <div class="card__footer">
+                                <p class="card__title">Карачаевск</p>
+                                <button class="card__like link card__like_disabled" type="button"></button>
+                            </div>
+                        </article>
                     </li>
                     <li class="card">
-                        <img src="./images/elbrus-mountain.png" alt="Поле на закате на фоне гор" class="card__image">
-                        <div class="card__footer">
-                            <p class="card__title">Гора Эльбрус</p>
-                            <button class="card__like link card__like_disabled" type="button"></button>
-                        </div>
+                        <article>
+                            <img src="./images/elbrus-mountain.png" alt="Поле на закате на фоне гор"
+                                class="card__image">
+                            <div class="card__footer">
+                                <p class="card__title">Гора Эльбрус</p>
+                                <button class="card__like link card__like_disabled" type="button"></button>
+                            </div>
+                    </li>
+                    </article>
+                    <li class="card">
+                        <article>
+                            <img src="./images/dombai-mountain.png" alt="Горы крупным планом. Вид сверху."
+                                class="card__image">
+                            <div class="card__footer">
+                                <p class="card__title">Домбай</p>
+                                <button class="card__like link card__like_disabled" type="button"></button>
+                            </div>
+                        </article>
                     </li>
                     <li class="card">
-                        <img src="./images/dombai-mountain.png" alt="Горы крупным планом. Вид сверху." class="card__image">
-                        <div class="card__footer">
-                            <p class="card__title">Домбай</p>
-                            <button class="card__like link card__like_disabled" type="button"></button>
-                        </div>
+                        <article>
+                            <img src="./images/elbrus-mountain.png" alt="Поле на закате на фоне гор"
+                                class="card__image">
+                            <div class="card__footer">
+                                <p class="card__title">Гора Эльбрус</p>
+                                <button class="card__like link card__like_disabled" type="button"></button>
+                            </div>
+                    </li>
+                    </article>
+                    <li class="card">
+                        <article>
+                            <img src="./images/dombai-mountain.png" alt="Горы крупным планом. Вид сверху."
+                                class="card__image">
+                            <div class="card__footer">
+                                <p class="card__title">Домбай</p>
+                                <button class="card__like link card__like_disabled" type="button"></button>
+                            </div>
+                        </article>
                     </li>
                     <li class="card">
-                        <img src="./images/elbrus-mountain.png" alt="Поле на закате на фоне гор" class="card__image">
-                        <div class="card__footer">
-                            <p class="card__title">Гора Эльбрус</p>
-                            <button class="card__like link card__like_disabled" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/dombai-mountain.png" alt="Горы крупным планом. Вид сверху." class="card__image">
-                        <div class="card__footer">
-                            <p class="card__title">Домбай</p>
-                            <button class="card__like link card__like_disabled" type="button"></button>
-                        </div>
-                    </li>
-                    <li class="card">
-                        <img src="./images/karachaevsk.jpg" alt="Церковь крупным планом на фоне гор" class="card__image">
-                        <div class="card__footer">
-                            <p class="card__title">Карачаево-Черкессия</p>
-                            <button class="card__like link card__like_disabled" type="button"></button>
-                        </div>
+                        <article>
+                            <img src="./images/karachaevsk.jpg" alt="Церковь крупным планом на фоне гор"
+                                class="card__image">
+                            <div class="card__footer">
+                                <p class="card__title">Карачаево-Черкессия</p>
+                                <button class="card__like link card__like_disabled" type="button"></button>
+                            </div>
+                        </article>
                     </li>
                 </ul>
             </section>
@@ -85,10 +104,10 @@
         <div class="popup">
             <div class="popup__container">
                 <button class="popup__close-btn link" type="button"></button>
-                <form class="popup__form" method="POST" name="edit-form">
+                <form class="popup__edit-form" method="POST" name="edit-form">
                     <h3 class="popup__title">Редактировать профиль</h3>
-                    <input id="input-name" name="user-name" class="popup__name popup__edit-form">
-                    <input id="input-descrpt" name="user-descrpt" class="popup__description popup__edit-form">
+                    <input id="input-name" name="user-name" type="text" class="popup__edit-form_type_name">
+                    <input id="input-descrpt" name="user-descrpt" type="text" class="popup__edit-form_type_name">
                     <button class="popup__submit-btn link" type="submit">Сохранить</button>
                 </form>
             </div>
