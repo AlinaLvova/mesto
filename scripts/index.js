@@ -26,9 +26,7 @@ function saveInput (evt) {
     evt.preventDefault(); 
     descrptProfile.textContent = descrptInput.value;
     nameProfile.textContent = nameInput.value; 
-    console.log('me');
     closePopup(); 
-    console.log('me2');
 }
 
 editButton.addEventListener('click', openPopup);
