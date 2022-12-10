@@ -12,10 +12,11 @@
 @media screen and (max-width: 880px){
      .popup__container{
         grid-template-columns: 282px;
-        grid-template-rows: 20px 322px;
+        grid-template-rows: 20px 322px 20px;
         gap: 16px;
         grid-template-areas:
            "close-btn"
-           "edit-form";
+           "edit-form"
+           ".";
      }
 }

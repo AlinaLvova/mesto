@@ -8,8 +8,6 @@ let descrptInput = document.querySelector('#input-descrpt');
 let nameProfile = document.querySelector('.profile__name');
 let descrptProfile = document.querySelector('.profile__description');
 
-console.log({formElement});
-
 function openPopup() {
     descrptInput.value = descrptProfile.textContent;
     nameInput.value = nameProfile.textContent;  
