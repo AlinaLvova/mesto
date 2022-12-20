@@ -1,0 +1,9 @@
+.popup__image {
+    display: block;
+    grid-area: image;
+    /* background-size: auto; */
+    max-width: 80vw;
+    max-height: 80vh;
+    background-size: auto;
+    background-position: center;
+}
