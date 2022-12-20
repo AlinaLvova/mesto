@@ -94,7 +94,7 @@ popupAddForm.addEventListener('submit', saveInputAddForm);
 const cardsList = document.querySelector('.gallery__list');
 
 const createCard = (nameCard, linkCard) => {
-    return `<li class="card">
+     const string = `<li class="card">
         <article>
             <img class="card__image" src="${linkCard}">
             <div class="card__footer">
