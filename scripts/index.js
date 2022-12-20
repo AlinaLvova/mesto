@@ -103,10 +103,15 @@ const createCard = (nameCard, linkCard) => {
             </div>
         </article>
     </li>`
+    const container = document.createElement('div');
+    container.innerHTML = string;
+    container.querySelector('.card__image').src = linkCard;
+    container.querySelector('.card__title').textContent = nameCard;
+    return container.firstElementChild;
 }
 
 const renderCardList = (cardName, cardLink) =>{
-    cardsList.insertAdjacentHTML('afterbegin', createCard(cardName, cardLink));
+    cardsList.append(createCard(cardName, cardLink));
 }
 
 initialCards.forEach((cardItem) => {
