@@ -4,6 +4,10 @@ const popupEditForm = document.querySelector('#popup-edit-form');
 const popupAddForm = document.querySelector('#popup-add-form');
 const popupCloseBtnEditForm = document.querySelector('#close-btn-edit');
 const popupCloseBtnAddForm = document.querySelector("#close-btn-add");
+const templateCard = document.querySelector('#cards-list-template');
+
+
+const cardsList = document.querySelector('.gallery__list');
 
 const initialCards = [
     {
@@ -87,35 +91,21 @@ function saveInputAddForm (evt) {
     linkImgInput.value="";
 }
 
+const createCard = (nameCard, linkCard) => {
+    const newCardItem = templateCard.content.querySelector('.card').cloneNode(true);
+    newCardItem.querySelector('.card__image').src = linkCard;
+    newCardItem.querySelector('.card__title').textContent = nameCard;
+    return newCardItem;
+}
+
+const renderCardList = (cardName, cardLink) =>{
+    cardsList.prepend(createCard(cardName, cardLink));
+}
+
 popupEditForm.addEventListener('submit', saveInputEditForm);
 popupAddForm.addEventListener('submit', saveInputAddForm);
 
 
-const cardsList = document.querySelector('.gallery__list');
-
-const createCard = (nameCard, linkCard) => {
-     const string = `<li class="card">
-        <article>
-            <img class="card__image" src="${linkCard}">
-            <div class="card__footer">
-                <h2 class="card__title">${nameCard}</h2>
-                <button class="card__like link" type="button" aria-label="liked"></button>
-            </div>
-        </article>
-    </li>`
-    const container = document.createElement('div');
-    container.innerHTML = string;
-    container.querySelector('.card__image').src = linkCard;
-    container.querySelector('.card__title').textContent = nameCard;
-    return container.firstElementChild;
-}
-
-const renderCardList = (cardName, cardLink) =>{
-    cardsList.append(createCard(cardName, cardLink));
-}
-
 initialCards.forEach((cardItem) => {
     renderCardList(cardItem.name, cardItem.link);
 });
-
-// cardsList.insertAdjacentElement('beforebegin',  map(createCard).join('\n'));
