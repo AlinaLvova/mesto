@@ -11,7 +11,7 @@ const popupCloseBtnImgForm = document.querySelector('#close-btn-img');
 
 const templateCard = document.querySelector('#cards-list-template');
 const cardsList = document.querySelector('.gallery__list');
-const initialCards = [
+let initialCards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -80,14 +80,21 @@ const saveNewCard = function saveInputAddForm(evt) {
   linkImgInput.value = "";
 }
 
-const createCard = (nameCard, linkCard) => {
-  const CardItem = templateCard.content.querySelector('.card').cloneNode(true);
-  CardItem.querySelector('.card__image').src = linkCard;
-  CardItem.querySelector('.card__title').textContent = nameCard;
+// const deleteCard = (nameCard, linkCard) => {
+//   initialCards = initialCards.filter(function (obj){
+//       return (obj.name !== nameCard);
+//   });  
+// }
 
-  CardItem.querySelector('.card__image').addEventListener('click', () => { popupOpenImgForm(nameCard, linkCard) });
+const createCard = (nameCard, linkCard) => {
+  const cardItem = templateCard.content.querySelector('.card').cloneNode(true);
+  cardItem.querySelector('.card__image').src = linkCard;
+  cardItem.querySelector('.card__title').textContent = nameCard;
+
+  cardItem.querySelector('.card__image').addEventListener('click', () => { popupOpenImgForm(nameCard, linkCard) });
   popupCloseBtnImgForm.addEventListener('click', () => { closePopup(popupImgForm);} );
-  return CardItem;
+  cardItem.querySelector('.card__delete').addEventListener('click', () => { cardItem.remove(); });
+  return cardItem;
 }
 
 const popupOpenImgForm = (nameCard, linkCard) => {
