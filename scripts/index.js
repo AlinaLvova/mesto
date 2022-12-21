@@ -95,11 +95,10 @@ const createCard = (nameCard, linkCard) => {
       cardItemLike.classList.remove('card__like_active');
     }
   });
-  console.log(cardItemLike);
   cardItemImg.addEventListener('click', () => { popupOpenImgForm(nameCard, linkCard) });
   popupCloseBtnImgForm.addEventListener('click', () => { closePopup(popupImgForm);} );
   cardItem.querySelector('.card__delete').addEventListener('click', () => { cardItem.remove(); });
-  
+
   return cardItem;
 }
 
