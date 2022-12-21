@@ -82,14 +82,24 @@ const openPopupEditForm = () => {
 const createCard = (nameCard, linkCard) => {
   const cardItem = templateCard.content.querySelector('.card').cloneNode(true);
   const cardItemImg = cardItem.querySelector('.card__image');
-  const cardItemLike = cardItem.querySelector('.card__like');
+  let cardItemLike = cardItem.querySelector('.card__like');
   cardItemImg.src = linkCard;
   cardItemImg.alt = nameCard;
   cardItem.querySelector('.card__title').textContent = nameCard;
-  cardItemLike.addEventListener('click', () => {cardItemLike.classList.add('card__like_active');});
+
+  cardItemLike.addEventListener('click', () => {
+    if (!cardItemLike.matches('.card__like_active')){
+      cardItemLike.classList.add('card__like_active');
+    }
+    else{
+      cardItemLike.classList.remove('card__like_active');
+    }
+  });
+  console.log(cardItemLike);
   cardItemImg.addEventListener('click', () => { popupOpenImgForm(nameCard, linkCard) });
   popupCloseBtnImgForm.addEventListener('click', () => { closePopup(popupImgForm);} );
   cardItem.querySelector('.card__delete').addEventListener('click', () => { cardItem.remove(); });
+  
   return cardItem;
 }
 
