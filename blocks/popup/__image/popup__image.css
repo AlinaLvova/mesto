@@ -1,9 +1,8 @@
 .popup__image {
     display: block;
     grid-area: image;
-    /* background-size: auto; */
-    max-width: 80vw;
-    max-height: 80vh;
+    max-width: 75vw;
+    max-height: 75vh;
     background-size: auto;
     background-position: center;
 }
