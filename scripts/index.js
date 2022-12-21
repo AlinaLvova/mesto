@@ -81,13 +81,15 @@ const saveNewCard = function saveInputAddForm(evt) {
 }
 
 const createCard = (nameCard, linkCard) => {
-  const CardItem = templateCard.content.querySelector('.card').cloneNode(true);
-  CardItem.querySelector('.card__image').src = linkCard;
-  CardItem.querySelector('.card__title').textContent = nameCard;
+  const cardItem = templateCard.content.querySelector('.card').cloneNode(true);
+  cardItem.querySelector('.card__image').src = linkCard;
+  cardItem.querySelector('.card__title').textContent = nameCard;
 
-  CardItem.querySelector('.card__image').addEventListener('click', () => { popupOpenImgForm(nameCard, linkCard) });
+
+  cardItem.querySelector('.card__like').addEventListener('click', () => {cardItem.querySelector('.card__like').classList.add('card__like_active');});
+  cardItem.querySelector('.card__image').addEventListener('click', () => { popupOpenImgForm(nameCard, linkCard) });
   popupCloseBtnImgForm.addEventListener('click', () => { closePopup(popupImgForm);} );
-  return CardItem;
+  return cardItem;
 }
 
 const popupOpenImgForm = (nameCard, linkCard) => {
