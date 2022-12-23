@@ -40,14 +40,14 @@ const initialCards = [
   }
 ];
 
-let titleImgInput = document.querySelector('#input-title');
-let linkImgInput = document.querySelector('#input-link');
+const titleImgInput = document.querySelector('#input-title');
+const linkImgInput = document.querySelector('#input-link');
 
-let nameInput = document.querySelector('#input-name');
-let descrptInput = document.querySelector('#input-descrpt');
+const nameInput = document.querySelector('#input-name');
+const descrptInput = document.querySelector('#input-descrpt');
 
-let nameProfile = document.querySelector('.profile__name');
-let descrptProfile = document.querySelector('.profile__description');
+const nameProfile = document.querySelector('.profile__name');
+const descrptProfile = document.querySelector('.profile__description');
 
 function saveProfile(evt) {
   evt.preventDefault();
@@ -80,9 +80,10 @@ const openPopupEditForm = () => {
   openPopup(popupEditForm);
 };
 
-function closePopupAddForm (evt){
+function closePopupAddForm (){
     closePopup(popupAddForm);
-    evt.target.reset();
+    titleImgInput.value = "";
+    linkImgInput.value = "";
 }
 
 const createCard = (nameCard, linkCard) => {
