@@ -43,17 +43,32 @@ const initialCards = [
 const titleImgInput = document.querySelector('#input-title');
 const linkImgInput = document.querySelector('#input-link');
 
-const nameInput = document.querySelector('#input-name');
+const userNameInput = document.querySelector('#input-name');
 const descrptInput = document.querySelector('#input-descrpt');
 
-const nameProfile = document.querySelector('.profile__name');
+const userNameProfile = document.querySelector('.profile__name');
 const descrptProfile = document.querySelector('.profile__description');
+
+const validationConfig = {
+  formSelector: '.popup__edit-form',
+  inputSelector: '.popup__input-field',
+  submitButtonSelector: '.popup__submit-btn',
+  inactiveButtonClass: 'popup__button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_visible'
+};
 
 function saveProfile(evt) {
   evt.preventDefault();
   descrptProfile.textContent = descrptInput.value;
-  nameProfile.textContent = nameInput.value;
+  userNameProfile.textContent = userNameInput.value;
   closePopup(popupEditForm);
+
+  //отладка
+  console.log({
+    username: userNameInput.value,
+    description: descrptInput.value,
+  })
 }
 
 function saveNewCard (evt) {
@@ -64,6 +79,12 @@ function saveNewCard (evt) {
   closePopup(popupAddForm);
   renderCardList(titleImgInput.value, linkImgInput.value);
   evt.target.reset();
+
+  //отладка
+  console.log({
+    username: titleImgInput.value,
+    description: linkImgInput.value,
+  })
 }
 
 const closePopup = (popup) => {
@@ -76,7 +97,7 @@ const openPopup = (popup) => {
 
 const openPopupEditForm = () => {
   descrptInput.value = descrptProfile.textContent;
-  nameInput.value = nameProfile.textContent;
+  userNameInput.value = userNameProfile.textContent;
   openPopup(popupEditForm);
 };
 
@@ -118,7 +139,6 @@ initialCards.forEach((cardItem) => {
   renderCardList(cardItem.name, cardItem.link);
 });
 
-
 popupEditForm.addEventListener('submit', saveProfile);
 popupAddForm.addEventListener('submit', saveNewCard);
 editButton.addEventListener('click', openPopupEditForm);
@@ -126,6 +146,10 @@ addButton.addEventListener('click', () => { openPopup(popupAddForm) });
 popupCloseBtnEditForm.addEventListener('click', () => { closePopup(popupEditForm);});
 popupCloseBtnAddForm.addEventListener('click', closePopupAddForm);
 popupCloseBtnImgForm.addEventListener('click', () => { closePopup(popupImgForm);} );
+
+enableValidation(validationConfig);
+
+
 
 // Убрала кнопки и попробовала применить этот способ. К сожалению, не сработало :(
 // const closeButtons = document.querySelectorAll('.popup__close');
