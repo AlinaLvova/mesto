@@ -53,9 +53,9 @@ const validationConfig = {
   formSelector: '.popup__edit-form',
   inputSelector: '.popup__input-field',
   submitButtonSelector: '.popup__submit-btn',
-  inactiveButtonClass: 'popup__button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_visible'
+  inactiveButtonClass: 'popup__submit-btn_disabled',
+  inputErrorClass: 'popup__input-field_type_error',
+  errorClass: 'popup__input-field_visible'
 };
 
 function saveProfile(evt) {
