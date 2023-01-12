@@ -15,6 +15,14 @@ function toggleButtonState(inputList, submitButtonElement, config){
     }
 }
 
+function hideAllInputErrors(popup, config){
+    const errorList = Array.from(popup.querySelectorAll(`.${config.errorClass}`));
+    const inputList = errorList.map((error) => error.previousElementSibling);
+  
+    inputList.forEach(inputElement => inputElement.classList.remove(config.inputErrorClass));
+    errorList.forEach(errorElement => errorElement.classList.remove(config.errorClass));  
+}
+
 //скрыть сообщение об ошибке
 function hideInputError(formElement, inputElement, config){ 
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);

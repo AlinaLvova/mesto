@@ -77,15 +77,10 @@ function saveNewCard (evt) {
   closePopup(popupAddForm);
   renderCardList(titleImgInput.value, linkImgInput.value);
   evt.target.reset();
-
-  //отладка
-  console.log({
-    username: titleImgInput.value,
-    description: linkImgInput.value,
-  })
 }
 
 const closePopup = (popup) => {
+  hideAllInputErrors(popup, validationConfig);
   popup.classList.remove('popup_opened');
 };
 
@@ -98,12 +93,6 @@ const openPopupEditForm = () => {
   userNameInput.value = userNameProfile.textContent;
   openPopup(popupEditForm);
 };
-
-function closePopupAddForm (){
-    closePopup(popupAddForm);
-    titleImgInput.value = "";
-    linkImgInput.value = "";
-}
 
 const createCard = (nameCard, linkCard) => {
   const cardItem = templateCard.content.querySelector('.card').cloneNode(true);
@@ -141,21 +130,38 @@ popupEditForm.addEventListener('submit', saveProfile);
 popupAddForm.addEventListener('submit', saveNewCard);
 editButton.addEventListener('click', openPopupEditForm);
 addButton.addEventListener('click', () => { openPopup(popupAddForm) });
-popupCloseBtnEditForm.addEventListener('click', () => { closePopup(popupEditForm);});
-popupCloseBtnAddForm.addEventListener('click', closePopupAddForm);
-popupCloseBtnImgForm.addEventListener('click', () => { closePopup(popupImgForm);} );
 
 enableValidation(validationConfig);
 
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape'){
+    const popup = popupList.find(popupElem => popupElem.classList.contains('popup_opened'));
+    if (popup == popupAddForm) {
+      titleImgInput.value = "";
+      linkImgInput.value = "";
+    }
+    closePopup(popup);
+  }
+});
 
 
-// Убрала кнопки и попробовала применить этот способ. К сожалению, не сработало :(
-// const closeButtons = document.querySelectorAll('.popup__close');
-// closeButtons.forEach((button) => {
-//   // находим 1 раз ближайший к крестику попап 
-//   const popup = button.closest('.popup');
-//   // устанавливаем обработчик закрытия на крестик
-//   button.addEventListener('click', () => closePopup(popup));
-// });
+const closeButtons = document.querySelectorAll('.popup__close-btn');
+closeButtons.forEach((button) => {
+  // находим 1 раз ближайший к крестику попап 
+  const popup = button.closest('.popup');
+  console.log(popup);
+  console.log(popupAddForm == popup);
+
+  // устанавливаем обработчик закрытия на крестик
+  button.addEventListener('click', () => {
+    if (popup == popupAddForm) {
+      titleImgInput.value = "";
+      linkImgInput.value = "";
+    }
+    closePopup(popup);
+  });
+});
 
 
