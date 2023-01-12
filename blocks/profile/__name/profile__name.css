@@ -9,7 +9,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    min-width: 10ch;
+    min-width: 1ch;
     max-width: 16ch;
     width: max-content;
 }

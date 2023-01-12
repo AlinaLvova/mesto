@@ -1,4 +1,19 @@
 
+//проверка на валидность всех полей в форме
+function hasInvalidInput(inputList){
+    return inputList.some((inputElement) => !inputElement.validity.valid);
+}
+
+//переключить состояние кнопки
+function toggleButtonState(inputList, submitButtonElement, config){
+    if(hasInvalidInput(inputList)){
+        submitButtonElement.classList.add(config.inactiveButtonClass);
+        submitButtonElement.disabled = true;
+    }else{
+        submitButtonElement.classList.remove(config.inactiveButtonClass);
+        submitButtonElement.disabled = false;
+    }
+}
 
 //скрыть сообщение об ошибке
 function hideInputError(formElement, inputElement, config){ 
@@ -30,10 +45,14 @@ function checkInputValidity(formElement, inputElement, config){
 //обработчик события инпут для всех форм
 function setEventListener(formElement, config){ 
     const inputList = Array.from(formElement.querySelectorAll(config.inputSelector));
+    const submitButtonElement = formElement.querySelector(config.submitButtonSelector);
+
+    toggleButtonState(inputList, submitButtonElement, config);
 
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
             checkInputValidity(formElement, inputElement, config);
+            toggleButtonState(inputList, submitButtonElement, config);
         });
     });
 }
@@ -41,7 +60,7 @@ function setEventListener(formElement, config){
 function enableValidation(config){
     const formList = Array.from(document.querySelectorAll(config.formSelector));
 
-    formList.forEach(formElement => {
+    formList.forEach((formElement) => {
         setEventListener(formElement, config);
     });
 }

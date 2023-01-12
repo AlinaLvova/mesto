@@ -55,7 +55,7 @@ const validationConfig = {
   submitButtonSelector: '.popup__submit-btn',
   inactiveButtonClass: 'popup__submit-btn_disabled',
   inputErrorClass: 'popup__input-field_type_error',
-  errorClass: 'popup__input-field_visible'
+  errorClass: 'popup__input-field-error_visible'
 };
 
 function saveProfile(evt) {
@@ -73,8 +73,6 @@ function saveProfile(evt) {
 
 function saveNewCard (evt) {
   evt.preventDefault();
-  if (titleImgInput.value === "" || linkImgInput.value === "")
-    return alert("Введите корректные данные");
   initialCards.push({ name: titleImgInput.value, link: linkImgInput.value });
   closePopup(popupAddForm);
   renderCardList(titleImgInput.value, linkImgInput.value);
