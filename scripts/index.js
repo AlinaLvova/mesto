@@ -4,15 +4,11 @@ const addButton = document.querySelector('.profile__add-button');
 const popupEditForm = document.querySelector('#popup-edit-form');
 const popupAddForm = document.querySelector('#popup-add-form');
 const popupImgForm = document.querySelector('#popup-open-img');
-const imgPopup = popupImgForm.querySelector('.popup__image');
-const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
-
-const popupCloseBtnEditForm = document.querySelector('#close-btn-edit');
-const popupCloseBtnAddForm = document.querySelector("#close-btn-add");
-const popupCloseBtnImgForm = document.querySelector('#close-btn-img');
 
 const templateCard = document.querySelector('#cards-list-template');
-const cardsList = document.querySelector('.gallery__list');
+
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -43,48 +39,52 @@ const initialCards = [
 const titleImgInput = document.querySelector('#input-title');
 const linkImgInput = document.querySelector('#input-link');
 
-const nameInput = document.querySelector('#input-name');
+const userNameInput = document.querySelector('#input-name');
 const descrptInput = document.querySelector('#input-descrpt');
 
-const nameProfile = document.querySelector('.profile__name');
+const userNameProfile = document.querySelector('.profile__name');
 const descrptProfile = document.querySelector('.profile__description');
+
+const validationConfig = {
+  formSelector: '.popup__edit-form',
+  inputSelector: '.popup__input-field',
+  submitButtonSelector: '.popup__submit-btn',
+  inactiveButtonClass: 'popup__submit-btn_disabled',
+  inputErrorClass: 'popup__input-field_type_error',
+  errorClass: 'popup__input-field-error_visible'
+};
 
 function saveProfile(evt) {
   evt.preventDefault();
   descrptProfile.textContent = descrptInput.value;
-  nameProfile.textContent = nameInput.value;
+  userNameProfile.textContent = userNameInput.value;
   closePopup(popupEditForm);
 }
 
 function saveNewCard (evt) {
   evt.preventDefault();
-  if (titleImgInput.value === "" || linkImgInput.value === "")
-    return alert("Введите корректные данные");
   initialCards.push({ name: titleImgInput.value, link: linkImgInput.value });
-  closePopup(popupAddForm);
   renderCardList(titleImgInput.value, linkImgInput.value);
+  closePopup(popupAddForm);
   evt.target.reset();
 }
 
 const closePopup = (popup) => {
+  if (popup == popupAddForm) {
+    titleImgInput.value = "";
+    linkImgInput.value = "";
+  }
+  hideAllInputErrors(popup, validationConfig);
   popup.classList.remove('popup_opened');
 };
 
 const openPopup = (popup) => {
+  if (popup == popupEditForm) {
+    descrptInput.value = descrptProfile.textContent;
+    userNameInput.value = userNameProfile.textContent;
+  }
   popup.classList.add('popup_opened');
 };
-
-const openPopupEditForm = () => {
-  descrptInput.value = descrptProfile.textContent;
-  nameInput.value = nameProfile.textContent;
-  openPopup(popupEditForm);
-};
-
-function closePopupAddForm (){
-    closePopup(popupAddForm);
-    titleImgInput.value = "";
-    linkImgInput.value = "";
-}
 
 const createCard = (nameCard, linkCard) => {
   const cardItem = templateCard.content.querySelector('.card').cloneNode(true);
@@ -104,6 +104,9 @@ const createCard = (nameCard, linkCard) => {
 }
 
 const openPopupImgForm = (nameCard, linkCard) => {
+  const imgPopup = popupImgForm.querySelector('.popup__image');
+  const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
+
   figcaptionCard.textContent = nameCard;
   imgPopup.src = linkCard;
   imgPopup.alt = nameCard;
@@ -111,6 +114,7 @@ const openPopupImgForm = (nameCard, linkCard) => {
 }
 
 const renderCardList = (cardName, cardLink) => {
+  const cardsList = document.querySelector('.gallery__list');
   cardsList.prepend(createCard(cardName, cardLink));
 }
 
@@ -118,22 +122,25 @@ initialCards.forEach((cardItem) => {
   renderCardList(cardItem.name, cardItem.link);
 });
 
-
 popupEditForm.addEventListener('submit', saveProfile);
 popupAddForm.addEventListener('submit', saveNewCard);
-editButton.addEventListener('click', openPopupEditForm);
+editButton.addEventListener('click', () => { openPopup(popupEditForm) });
 addButton.addEventListener('click', () => { openPopup(popupAddForm) });
-popupCloseBtnEditForm.addEventListener('click', () => { closePopup(popupEditForm);});
-popupCloseBtnAddForm.addEventListener('click', closePopupAddForm);
-popupCloseBtnImgForm.addEventListener('click', () => { closePopup(popupImgForm);} );
 
-// Убрала кнопки и попробовала применить этот способ. К сожалению, не сработало :(
-// const closeButtons = document.querySelectorAll('.popup__close');
-// closeButtons.forEach((button) => {
-//   // находим 1 раз ближайший к крестику попап 
-//   const popup = button.closest('.popup');
-//   // устанавливаем обработчик закрытия на крестик
-//   button.addEventListener('click', () => closePopup(popup));
-// });
+enableValidation(validationConfig);
 
+document.addEventListener('keydown', (evt) => {
+  if (evt.key === 'Escape'){
+    const popup = popupList.find(popupElem => popupElem.classList.contains('popup_opened'));
+    closePopup(popup);
+  }
+});
 
+//закрытие попапа через оверлей и кнопку "закрыть"
+popupList.forEach(popup => {
+  popup.addEventListener('click', (evt) => {
+    if (popup == evt.target || popup.firstElementChild == evt.target || popup.firstElementChild.firstElementChild === evt.target) {
+      closePopup(popup);
+    }
+  });
+}) 
