@@ -81,8 +81,8 @@ function removeEventListenerButtonClose (popup){
 
 //добавить обработчик для закрытия по overlay
 function removeEventListenerOverlayClose(popup) {
-  const popupContainer = popup.querySelector('#overlay');
-  popupContainer.removeEventListener('click', (evt) => { closePopupIfEventContains(evt, popupContainer.classList, popup) });
+  const popupContainer = popup.querySelector('.overlay');
+  popupContainer.removeEventListener('click', (evt) => { closePopupIfEventContains(evt, 'overlay', popup) });
   popup.removeEventListener('click', (evt) => { closePopupIfEventContains(evt, 'popup_opened', popup) });
 }
 
@@ -127,8 +127,8 @@ const closePopupIfEventContains = (evt, _class, popup) => {
 
 //добавить обработчик для закрытия по overlay
 function addEventListenerOverlayClose(popup) {
-  const popupContainer = popup.querySelector('#overlay');
-  popupContainer.addEventListener('click', (evt) => { closePopupIfEventContains(evt, popupContainer.classList, popup) });
+  const popupContainer = popup.querySelector('.overlay');
+  popupContainer.addEventListener('click', (evt) => { closePopupIfEventContains(evt, 'overlay', popup) });
   popup.addEventListener('click', (evt) => { closePopupIfEventContains(evt, 'popup_opened', popup) });
 }
 
