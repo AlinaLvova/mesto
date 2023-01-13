@@ -75,14 +75,24 @@ const closePopup = (popup) => {
     linkImgInput.value = "";
   }
   hideAllInputErrors(popup, validationConfig);
+  document.removeEventListener('keydown', closePopupByEscape);
   popup.classList.remove('popup_opened');
 };
+
+const closePopupByEscape = (evt) => {
+    if (evt.key === 'Escape') {
+      const popup = popupList.find(popupElem => popupElem.classList.contains('popup_opened'));
+      closePopup(popup);
+    }
+}
 
 const openPopup = (popup) => {
   if (popup == popupEditForm) {
     descrptInput.value = descrptProfile.textContent;
     userNameInput.value = userNameProfile.textContent;
   }
+  enableValidation(validationConfig);
+  document.addEventListener('keydown', closePopupByEscape);
   popup.classList.add('popup_opened');
 };
 
@@ -126,15 +136,6 @@ popupEditForm.addEventListener('submit', saveProfile);
 popupAddForm.addEventListener('submit', saveNewCard);
 editButton.addEventListener('click', () => { openPopup(popupEditForm) });
 addButton.addEventListener('click', () => { openPopup(popupAddForm) });
-
-enableValidation(validationConfig);
-
-document.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Escape'){
-    const popup = popupList.find(popupElem => popupElem.classList.contains('popup_opened'));
-    closePopup(popup);
-  }
-});
 
 //закрытие попапа через оверлей и кнопку "закрыть"
 popupList.forEach(popup => {
