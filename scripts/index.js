@@ -4,15 +4,11 @@ const addButton = document.querySelector('.profile__add-button');
 const popupEditForm = document.querySelector('#popup-edit-form');
 const popupAddForm = document.querySelector('#popup-add-form');
 const popupImgForm = document.querySelector('#popup-open-img');
-const imgPopup = popupImgForm.querySelector('.popup__image');
-const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
-
-const popupCloseBtnEditForm = document.querySelector('#close-btn-edit');
-const popupCloseBtnAddForm = document.querySelector("#close-btn-add");
-const popupCloseBtnImgForm = document.querySelector('#close-btn-img');
 
 const templateCard = document.querySelector('#cards-list-template');
-const cardsList = document.querySelector('.gallery__list');
+
+const popupList = Array.from(document.querySelectorAll('.popup'));
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -63,35 +59,31 @@ function saveProfile(evt) {
   descrptProfile.textContent = descrptInput.value;
   userNameProfile.textContent = userNameInput.value;
   closePopup(popupEditForm);
-
-  //отладка
-  console.log({
-    username: userNameInput.value,
-    description: descrptInput.value,
-  })
 }
 
 function saveNewCard (evt) {
   evt.preventDefault();
   initialCards.push({ name: titleImgInput.value, link: linkImgInput.value });
-  closePopup(popupAddForm);
   renderCardList(titleImgInput.value, linkImgInput.value);
+  closePopup(popupAddForm);
   evt.target.reset();
 }
 
 const closePopup = (popup) => {
+  if (popup == popupAddForm) {
+    titleImgInput.value = "";
+    linkImgInput.value = "";
+  }
   hideAllInputErrors(popup, validationConfig);
   popup.classList.remove('popup_opened');
 };
 
 const openPopup = (popup) => {
+  if (popup == popupEditForm) {
+    descrptInput.value = descrptProfile.textContent;
+    userNameInput.value = userNameProfile.textContent;
+  }
   popup.classList.add('popup_opened');
-};
-
-const openPopupEditForm = () => {
-  descrptInput.value = descrptProfile.textContent;
-  userNameInput.value = userNameProfile.textContent;
-  openPopup(popupEditForm);
 };
 
 const createCard = (nameCard, linkCard) => {
@@ -112,6 +104,9 @@ const createCard = (nameCard, linkCard) => {
 }
 
 const openPopupImgForm = (nameCard, linkCard) => {
+  const imgPopup = popupImgForm.querySelector('.popup__image');
+  const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
+
   figcaptionCard.textContent = nameCard;
   imgPopup.src = linkCard;
   imgPopup.alt = nameCard;
@@ -119,6 +114,7 @@ const openPopupImgForm = (nameCard, linkCard) => {
 }
 
 const renderCardList = (cardName, cardLink) => {
+  const cardsList = document.querySelector('.gallery__list');
   cardsList.prepend(createCard(cardName, cardLink));
 }
 
@@ -128,40 +124,23 @@ initialCards.forEach((cardItem) => {
 
 popupEditForm.addEventListener('submit', saveProfile);
 popupAddForm.addEventListener('submit', saveNewCard);
-editButton.addEventListener('click', openPopupEditForm);
+editButton.addEventListener('click', () => { openPopup(popupEditForm) });
 addButton.addEventListener('click', () => { openPopup(popupAddForm) });
 
 enableValidation(validationConfig);
 
-const popupList = Array.from(document.querySelectorAll('.popup'));
-
 document.addEventListener('keydown', (evt) => {
   if (evt.key === 'Escape'){
     const popup = popupList.find(popupElem => popupElem.classList.contains('popup_opened'));
-    if (popup == popupAddForm) {
-      titleImgInput.value = "";
-      linkImgInput.value = "";
-    }
     closePopup(popup);
   }
 });
 
-
-const closeButtons = document.querySelectorAll('.popup__close-btn');
-closeButtons.forEach((button) => {
-  // находим 1 раз ближайший к крестику попап 
-  const popup = button.closest('.popup');
-  console.log(popup);
-  console.log(popupAddForm == popup);
-
-  // устанавливаем обработчик закрытия на крестик
-  button.addEventListener('click', () => {
-    if (popup == popupAddForm) {
-      titleImgInput.value = "";
-      linkImgInput.value = "";
+//закрытие попапа через оверлей и кнопку "закрыть"
+popupList.forEach(popup => {
+  popup.addEventListener('click', (evt) => {
+    if (popup == evt.target || popup.firstElementChild == evt.target || popup.firstElementChild.firstElementChild === evt.target) {
+      closePopup(popup);
     }
-    closePopup(popup);
   });
-});
-
-
+}) 
