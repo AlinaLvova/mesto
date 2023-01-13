@@ -1,13 +1,18 @@
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
-const popupEditForm = document.querySelector('#popup-edit-form');
+const popupProfileForm = document.querySelector('#popup-edit-form');
 const popupAddForm = document.querySelector('#popup-add-form');
 const popupImgForm = document.querySelector('#popup-open-img');
 
 const templateCard = document.querySelector('#cards-list-template');
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
+
+const imgPopup = popupImgForm.querySelector('.popup__image');
+const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
+
+const cardsContainer = document.querySelector('.gallery__list');
 
 const initialCards = [
   {
@@ -58,25 +63,34 @@ function saveProfile(evt) {
   evt.preventDefault();
   descrptProfile.textContent = descrptInput.value;
   userNameProfile.textContent = userNameInput.value;
-  closePopup(popupEditForm);
+  closePopup(popupProfileForm);
 }
 
 function saveNewCard (evt) {
   evt.preventDefault();
-  initialCards.push({ name: titleImgInput.value, link: linkImgInput.value });
   renderCardList(titleImgInput.value, linkImgInput.value);
   closePopup(popupAddForm);
   evt.target.reset();
 }
 
+//удалить обработчик событий для кнопки закрытия
+function removeEventListenerButtonClose (popup){
+  const closeButton = popup.querySelector('.popup__close-btn');
+  closeButton.removeEventListener('click', () => closePopup(popup));
+}
+
+//добавить обработчик для закрытия по overlay
+function removeEventListenerOverlayClose(popup) {
+  const popupContainer = popup.querySelector('#overlay');
+  popupContainer.removeEventListener('click', (evt) => { closePopupIfEventContains(evt, popupContainer.classList, popup) });
+  popup.removeEventListener('click', (evt) => { closePopupIfEventContains(evt, 'popup_opened', popup) });
+}
+
 const closePopup = (popup) => {
-  if (popup == popupAddForm) {
-    titleImgInput.value = "";
-    linkImgInput.value = "";
-  }
-  hideAllInputErrors(popup, validationConfig);
   document.removeEventListener('keydown', closePopupByEscape);
   popup.classList.remove('popup_opened');
+  removeEventListenerButtonClose(popup);
+  removeEventListenerOverlayClose(popup);
 };
 
 const closePopupByEscape = (evt) => {
@@ -86,14 +100,44 @@ const closePopupByEscape = (evt) => {
     }
 }
 
-const openPopup = (popup) => {
-  if (popup == popupEditForm) {
-    descrptInput.value = descrptProfile.textContent;
-    userNameInput.value = userNameProfile.textContent;
+function openProfilePopup() {
+  descrptInput.value = descrptProfile.textContent;
+  userNameInput.value = userNameProfile.textContent;
+  openPopup(popupProfileForm);
+}
+
+function openAddPopup() {
+  titleImgInput.value = '';
+  linkImgInput.value = '';
+  openPopup(popupAddForm);
+}
+
+function addEventListenerButtonClose (popup){
+  const closeButton = popup.querySelector('.popup__close-btn');
+  // устанавливаем обработчик закрытия на крестик 
+  closeButton.addEventListener('click', () => closePopup(popup));
+}
+
+//закрыть попап, если событие содержит класс
+const closePopupIfEventContains = (evt, _class, popup) => {
+  if (evt.target.classList.contains(_class)){
+    closePopup(popup);
   }
+};
+
+//добавить обработчик для закрытия по overlay
+function addEventListenerOverlayClose(popup) {
+  const popupContainer = popup.querySelector('#overlay');
+  popupContainer.addEventListener('click', (evt) => { closePopupIfEventContains(evt, popupContainer.classList, popup) });
+  popup.addEventListener('click', (evt) => { closePopupIfEventContains(evt, 'popup_opened', popup) });
+}
+
+const openPopup = (popup) => {
   enableValidation(validationConfig);
   document.addEventListener('keydown', closePopupByEscape);
   popup.classList.add('popup_opened');
+  addEventListenerButtonClose(popup);
+  addEventListenerOverlayClose(popup);
 };
 
 const createCard = (nameCard, linkCard) => {
@@ -114,9 +158,6 @@ const createCard = (nameCard, linkCard) => {
 }
 
 const openPopupImgForm = (nameCard, linkCard) => {
-  const imgPopup = popupImgForm.querySelector('.popup__image');
-  const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
-
   figcaptionCard.textContent = nameCard;
   imgPopup.src = linkCard;
   imgPopup.alt = nameCard;
@@ -124,24 +165,14 @@ const openPopupImgForm = (nameCard, linkCard) => {
 }
 
 const renderCardList = (cardName, cardLink) => {
-  const cardsList = document.querySelector('.gallery__list');
-  cardsList.prepend(createCard(cardName, cardLink));
+  cardsContainer.prepend(createCard(cardName, cardLink));
 }
 
 initialCards.forEach((cardItem) => {
   renderCardList(cardItem.name, cardItem.link);
 });
 
-popupEditForm.addEventListener('submit', saveProfile);
+popupProfileForm.addEventListener('submit', saveProfile);
 popupAddForm.addEventListener('submit', saveNewCard);
-editButton.addEventListener('click', () => { openPopup(popupEditForm) });
-addButton.addEventListener('click', () => { openPopup(popupAddForm) });
-
-//закрытие попапа через оверлей и кнопку "закрыть"
-popupList.forEach(popup => {
-  popup.addEventListener('click', (evt) => {
-    if (popup == evt.target || popup.firstElementChild == evt.target || popup.firstElementChild.firstElementChild === evt.target) {
-      closePopup(popup);
-    }
-  });
-}) 
+editButton.addEventListener('click', () => { openProfilePopup() });
+addButton.addEventListener('click', () => { openAddPopup() });
