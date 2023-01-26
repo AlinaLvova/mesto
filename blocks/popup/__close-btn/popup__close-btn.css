@@ -7,13 +7,16 @@
     background-image: url(./../../../images/close-icon.svg);
     background-position: center center;
     background-size: contain;
-    grid-area: close-btn;
+    position: absolute;
+    right: -40px;
+    top: -40px;
 }
 
 @media screen and (max-width: 880px){
     .popup__close-btn{
        width: 20px;
        height: 20px;
-       justify-self: end;
+       top: -36px;
+       right: 0;
     }
 }

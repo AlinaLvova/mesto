@@ -1,22 +1,20 @@
 .popup__container{
-    display: grid;
+    /* display: grid;
     grid-template-columns: 32px 430px 32px;
     grid-template-rows: 32px 330px;
     grid-template-areas:
         ". . close-btn"
         ". edit-form .";
-    gap: 8px;
+    gap: 8px; */
+    width: 430px;
+    height: 330px;
+    position: relative;
     z-index: 15;
 }
 
 @media screen and (max-width: 880px){
      .popup__container{
-        grid-template-columns: 282px;
-        grid-template-rows: 20px 322px 20px;
-        gap: 16px;
-        grid-template-areas:
-           "close-btn"
-           "edit-form"
-           ".";
+        width: 282px;
+        height: 322px;
      }
 }
