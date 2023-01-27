@@ -39,7 +39,7 @@
             <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
         </footer>
         <div class="popup" id="popup-edit-form">
-            <div class="popup__container overlay">
+            <div class="popup__container">
                 <button class="popup__close-btn link" id="close-btn-edit" type="button"
                     aria-label="close edit form"></button>
                 <form class="popup__edit-form" method="POST" name="edit-form" novalidate>
@@ -55,7 +55,7 @@
             </div>
         </div>
         <div class="popup" id="popup-add-form">
-            <div class="popup__container overlay">
+            <div class="popup__container">
                 <button class="popup__close-btn link" id="close-btn-add" type="button"
                     aria-label="close add form"></button>
                 <form class="popup__edit-form" method="POST" name="add-form" novalidate>
@@ -71,11 +71,11 @@
             </div>
         </div>
         <div class="popup popup_opacity-img" id="popup-open-img">
-            <div class="popup__big-img-container overlay">
-                <button class="popup__close-btn link" id="close-btn-img" type="button"
-                    aria-label="close img popup"></button>
+            <div class="popup__big-img-container">
                 <img class="popup__image" src="./images/penguin.jpg" type="button">
                 <figcaption class="popup__figcaption"></figcaption>
+                <button class="popup__close-btn link" id="close-btn-img" type="button"
+                    aria-label="close img popup"></button>
             </div>
         </div>
     </div>
@@ -92,9 +92,10 @@
             </article>
         </li>
     </template>
-
-    <script src="./scripts/validate.js"></script>
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/common.js"></script>
+    <script type="module" src="./scripts/Card.js"></script>
+    <script type="module" src="./scripts/FormValidator.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>
