@@ -1,13 +1,11 @@
 import {openPopup} from './common.js';
 
 export default class Card{
-    constructor(data, templateSelector, popupSelector){
+    constructor(data, templateSelector, handleOpenPopup){
         this._name = data.name;
         this._link = data.link;
-        this._templateSelector = templateSelector;
-        this._popupImage = popupSelector.querySelector('.popup__image');
-        this._popupFigcaption = popupSelector.querySelector('.popup__figcaption');
-        this._popup = popupSelector;
+        this._templateSelector = templateSelector; 
+        this._handleOpenPopup = handleOpenPopup;  
     }
 
     _getTemplate() {
@@ -18,13 +16,6 @@ export default class Card{
             .cloneNode(true);
 
         return cardElement;
-    }
-
-    _handleOpenPopup() {
-        this._popupFigcaption.textContent = this._name;
-        this._popupImage.src = this._link;
-        this._popupImage.alt = this._name;
-        openPopup(this._popup);
     }
 
     _handleClickLike() {
@@ -41,7 +32,7 @@ export default class Card{
             this._handleClickLike();
         });
         this._element.querySelector('.card__image').addEventListener('click', () => { 
-            this._handleOpenPopup(); 
+            this._handleOpenPopup(this._name, this._link); 
         });
         this._element.querySelector('.card__delete').addEventListener('click', () => {
              this._deleteElement(); 

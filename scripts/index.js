@@ -5,9 +5,11 @@ import FormValidator from './FormValidator.js';
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
-const popupProfileForm = document.querySelector('#popup-edit-form');
-const popupAddForm = document.querySelector('#popup-add-form');
-const popupImgForm = document.querySelector('#popup-open-img');
+const profileForm = document.querySelector('#popup-edit-form');
+const newCardForm = document.querySelector('#popup-add-form');
+const bigImageOfCard = document.querySelector('#popup-open-img');
+const popupImage = bigImageOfCard.querySelector('.popup__image');
+const popupFigcaption = bigImageOfCard.querySelector('.popup__figcaption');
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
@@ -59,28 +61,33 @@ const validationConfig = {
   errorClass: 'popup__input-field-error_visible'
 };
 
+const profileValidation = new FormValidator(validationConfig, profileForm);
+const newCardValidation = new FormValidator(validationConfig, newCardForm);
+profileValidation.enableValidation();
+newCardValidation.enableValidation();  
+
 function saveProfile(evt) {
   evt.preventDefault();
   descrptProfile.textContent = descrptInput.value;
   userNameProfile.textContent = userNameInput.value;
-  closePopup(popupProfileForm);
+  closePopup(profileForm);
 }
 
 function saveNewCard(evt) {
   evt.preventDefault();
   const dataCard = {name: titleImgInput.value, link: linkImgInput.value};
-  const newAddCard = new Card(dataCard, templateSelectorCard, popupImgForm);
+  const newAddCard = new Card(dataCard, templateSelectorCard, handleOpenPopup);
   cardsContainer.prepend(newAddCard.generateCard());
-  closePopup(popupAddForm);
+  closePopup(newCardForm);
   evt.target.reset();
-  evt.submitter.classList.add(validationConfig.inactiveButtonClass);
   evt.submitter.disabled = true;
 }
 
 function openProfilePopup() {
+  profileValidation.resetValidation();
   descrptInput.value = descrptProfile.textContent;
   userNameInput.value = userNameProfile.textContent;
-  openPopup(popupProfileForm);
+  openPopup(profileForm);
 }
 
 function addEventListenerButtonClose(popup) {
@@ -98,8 +105,16 @@ function addEventListenerOverlayClose(popup) {
   });
 }
 
+//обработчик открытия попапа для фотокарточки
+function handleOpenPopup(name, link) {
+  popupImage.src = link; 
+  popupImage.alt = name; 
+  popupFigcaption.textContent = name; 
+  openPopup(bigImageOfCard); 
+}
+
 const renderCardList = (data, templateSelectorCard) => {
-  const cardItem = new Card(data, templateSelectorCard, popupImgForm);
+  const cardItem = new Card(data, templateSelectorCard, handleOpenPopup);
   const cardElement = cardItem.generateCard();
   cardsContainer.prepend(cardElement);
 }
@@ -108,25 +123,13 @@ initialCards.forEach((cardItem) => {
   renderCardList(cardItem, templateSelectorCard);
 });
 
-popupProfileForm.addEventListener('submit', saveProfile);
-popupAddForm.addEventListener('submit', saveNewCard);
+profileForm.addEventListener('submit', saveProfile);
+newCardForm.addEventListener('submit', saveNewCard);
 editButton.addEventListener('click', () => { openProfilePopup() });
-addButton.addEventListener('click', () => { openPopup(popupAddForm) });
-
-//список селекторов форм редактирования
-const formList = Array.from(document.querySelectorAll(validationConfig.formSelector)); 
-
-//В данном случае создается список форм одного класса для валидации форм
-//Предположим, на страницу добавлена форма нового класса, в таком случае создадим
-//объект класса FormValidate с другим типом класса формы.
-
-//список форм редактирования
-const formValidateList = formList.map(function (formElement) {
-  const formValidate = new FormValidator(validationConfig, formElement);
-  return formValidate;
+addButton.addEventListener('click', () => { 
+    newCardValidation.resetValidation();
+    openPopup(newCardForm);
 });
-
-formValidateList.forEach( (formValidate) => {formValidate.enableValidation();});
 
 popupList.forEach(popup => {
   addEventListenerButtonClose(popup);

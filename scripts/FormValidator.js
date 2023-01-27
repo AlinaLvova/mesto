@@ -10,6 +10,14 @@ export default class FormValidator {
         this._submitButtonElement = this._formValidate.querySelector(this._submitButtonSelector);
     }
 
+    resetValidation() {
+        this._toggleButtonState(); 
+  
+        this._inputList.forEach((inputElement) => {
+          this._hideInputError(inputElement) 
+        });
+      } 
+    
     //скрыть сообщение об ошибке
     _hideInputError(inputElement) {
         const errorElement = this._formValidate.querySelector(`.${inputElement.id}-error`);
