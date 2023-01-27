@@ -1,16 +1,16 @@
+import {Card} from './Card.js';
+import {openPopup, closePopup, closePopupByEscape} from './common.js';
+
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
 
 const popupProfileForm = document.querySelector('#popup-edit-form');
 const popupAddForm = document.querySelector('#popup-add-form');
 const popupImgForm = document.querySelector('#popup-open-img');
-
-const templateCard = document.querySelector('#cards-list-template');
-
-const popupList = Array.from(document.querySelectorAll('.popup'));
-
 const imgPopup = popupImgForm.querySelector('.popup__image');
 const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
+
+const popupList = Array.from(document.querySelectorAll('.popup'));
 
 const cardsContainer = document.querySelector('.gallery__list');
 
@@ -75,18 +75,6 @@ function saveNewCard(evt) {
   evt.submitter.disabled = true;
 }
 
-const closePopup = (popup) => {
-  document.removeEventListener('keydown', closePopupByEscape);
-  popup.classList.remove('popup_opened');
-};
-
-const closePopupByEscape = (evt) => {
-  if (evt.key === 'Escape') {
-    const popup = document.querySelector('.popup_opened');
-    closePopup(popup);
-  }
-}
-
 function openProfilePopup() {
   descrptInput.value = descrptProfile.textContent;
   userNameInput.value = userNameProfile.textContent;
@@ -99,55 +87,23 @@ function addEventListenerButtonClose(popup) {
   closeButton.addEventListener('click', () => closePopup(popup));
 }
 
-//закрыть попап, если событие содержит класс
-const closePopupIfEventContains = (evt, _class, popup) => {
-  if (evt.target.classList.contains(_class)) {
-    closePopup(popup);
-  }
-};
-
 //добавить обработчик для закрытия по overlay
 function addEventListenerOverlayClose(popup) {
-  const popupContainer = popup.querySelector('.overlay');
-  popupContainer.addEventListener('click', (evt) => { closePopupIfEventContains(evt, 'overlay', popup) });
-  popup.addEventListener('click', (evt) => { closePopupIfEventContains(evt, 'popup_opened', popup) });
-}
-
-const openPopup = (popup) => {
-  document.addEventListener('keydown', closePopupByEscape);
-  popup.classList.add('popup_opened');
-};
-
-const createCard = (nameCard, linkCard) => {
-  const cardItem = templateCard.content.querySelector('.card').cloneNode(true);
-  const cardItemImg = cardItem.querySelector('.card__image');
-  const cardItemLike = cardItem.querySelector('.card__like');
-  cardItemImg.src = linkCard;
-  cardItemImg.alt = nameCard;
-  cardItem.querySelector('.card__title').textContent = nameCard;
-
-  cardItemLike.addEventListener('click', () => {
-    cardItemLike.classList.toggle('card__like_active');
+  popup.addEventListener('click', (evt) => {
+    if(evt.target.classList.contains('popup')) {
+      closePopup(popup);
+    }
   });
-  cardItemImg.addEventListener('click', () => { openPopupImgForm(nameCard, linkCard) });
-  cardItem.querySelector('.card__delete').addEventListener('click', () => { cardItem.remove(); });
-
-  return cardItem;
 }
 
-const openPopupImgForm = (nameCard, linkCard) => {
-  figcaptionCard.textContent = nameCard;
-  imgPopup.src = linkCard;
-  imgPopup.alt = nameCard;
-  openPopup(popupImgForm);
-}
-
-const renderCardList = (cardName, cardLink) => {
-  cardsContainer.prepend(createCard(cardName, cardLink));
+const renderCardList = (data, selector) => {
+  const cardItem = new Card(data, selector, popupImgForm);
+  const cardElement = cardItem.generateCard();
+  cardsContainer.prepend(cardElement);
 }
 
 initialCards.forEach((cardItem) => {
-  renderCardList(cardItem.name, cardItem.link);
+  renderCardList(cardItem, '#cards-list-template');
 });
 
 popupProfileForm.addEventListener('submit', saveProfile);
@@ -155,7 +111,7 @@ popupAddForm.addEventListener('submit', saveNewCard);
 editButton.addEventListener('click', () => { openProfilePopup() });
 addButton.addEventListener('click', () => { openPopup(popupAddForm) });
 
-enableValidation(validationConfig);
+//enableValidation(validationConfig);
 
 popupList.forEach(popup => {
   addEventListenerButtonClose(popup);
