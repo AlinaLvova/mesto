@@ -1,5 +1,6 @@
-import {Card} from './Card.js';
+import Card from './Card.js';
 import {openPopup, closePopup, closePopupByEscape} from './common.js';
+import FormValidator from './FormValidator.js'; 
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -7,11 +8,10 @@ const addButton = document.querySelector('.profile__add-button');
 const popupProfileForm = document.querySelector('#popup-edit-form');
 const popupAddForm = document.querySelector('#popup-add-form');
 const popupImgForm = document.querySelector('#popup-open-img');
-const imgPopup = popupImgForm.querySelector('.popup__image');
-const figcaptionCard = popupImgForm.querySelector('.popup__figcaption')
 
 const popupList = Array.from(document.querySelectorAll('.popup'));
 
+const templateSelectorCard = '#cards-list-template';
 const cardsContainer = document.querySelector('.gallery__list');
 
 const initialCards = [
@@ -68,7 +68,9 @@ function saveProfile(evt) {
 
 function saveNewCard(evt) {
   evt.preventDefault();
-  renderCardList(titleImgInput.value, linkImgInput.value);
+  const dataCard = {name: titleImgInput.value, link: linkImgInput.value};
+  const newAddCard = new Card(dataCard, templateSelectorCard, popupImgForm);
+  cardsContainer.prepend(newAddCard.generateCard());
   closePopup(popupAddForm);
   evt.target.reset();
   evt.submitter.classList.add(validationConfig.inactiveButtonClass);
@@ -96,14 +98,14 @@ function addEventListenerOverlayClose(popup) {
   });
 }
 
-const renderCardList = (data, selector) => {
-  const cardItem = new Card(data, selector, popupImgForm);
+const renderCardList = (data, templateSelectorCard) => {
+  const cardItem = new Card(data, templateSelectorCard, popupImgForm);
   const cardElement = cardItem.generateCard();
   cardsContainer.prepend(cardElement);
 }
 
 initialCards.forEach((cardItem) => {
-  renderCardList(cardItem, '#cards-list-template');
+  renderCardList(cardItem, templateSelectorCard);
 });
 
 popupProfileForm.addEventListener('submit', saveProfile);
@@ -111,7 +113,20 @@ popupAddForm.addEventListener('submit', saveNewCard);
 editButton.addEventListener('click', () => { openProfilePopup() });
 addButton.addEventListener('click', () => { openPopup(popupAddForm) });
 
-//enableValidation(validationConfig);
+//список селекторов форм редактирования
+const formList = Array.from(document.querySelectorAll(validationConfig.formSelector)); 
+
+//В данном случае создается список форм одного класса для валидации форм
+//Предположим, на страницу добавлена форма нового класса, в таком случае создадим
+//объект класса FormValidate с другим типом класса формы.
+
+//список форм редактирования
+const formValidateList = formList.map(function (formElement) {
+  const formValidate = new FormValidator(validationConfig, formElement);
+  return formValidate;
+});
+
+formValidateList.forEach( (formValidate) => {formValidate.enableValidation();});
 
 popupList.forEach(popup => {
   addEventListenerButtonClose(popup);

@@ -1,9 +1,6 @@
-// export const popupImgForm = document.querySelector('#popup-open-img');
-// export const imgPopup = popupImgForm.querySelector('.popup__image');
-// export const figcaptionCard = popupImgForm.querySelector('.popup__figcaption');
 import {openPopup} from './common.js';
 
-export class Card{
+export default class Card{
     constructor(data, templateSelector, popupSelector){
         this._name = data.name;
         this._link = data.link;
@@ -36,6 +33,7 @@ export class Card{
 
     _deleteElement(){
         this._element.remove();
+        this._element = null;
     }
               
     _setEventListener() {
