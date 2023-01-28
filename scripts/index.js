@@ -73,21 +73,29 @@ function saveProfile(evt) {
   closePopup(profileForm);
 }
 
-function saveNewCard(evt) {
+//создание карточки. _templateSelectorCard необходим для выбора типа показа карточки(горизонтального или по умолчанию) 
+function createCard(dataCard, _templateSelectorCard){
+  const newAddCard = new Card(dataCard, _templateSelectorCard, handleOpenPopup);
+  return newAddCard.generateCard();
+}
+
+function addCard(cardElement){
+  cardsContainer.prepend(cardElement);
+}
+
+function submitAddCardForm(evt) {
   evt.preventDefault();
   const dataCard = {name: titleImgInput.value, link: linkImgInput.value};
-  const newAddCard = new Card(dataCard, templateSelectorCard, handleOpenPopup);
-  cardsContainer.prepend(newAddCard.generateCard());
+  addCard(createCard(dataCard, templateSelectorCard));
   closePopup(newCardForm);
   evt.target.reset();
-  evt.submitter.disabled = true;
 }
 
 function openProfilePopup() {
-  profileValidation.resetValidation();
   descrptInput.value = descrptProfile.textContent;
   userNameInput.value = userNameProfile.textContent;
   openPopup(profileForm);
+  profileValidation.resetValidation();
 }
 
 function addEventListenerButtonClose(popup) {
@@ -113,22 +121,16 @@ function handleOpenPopup(name, link) {
   openPopup(bigImageOfCard); 
 }
 
-const renderCardList = (data, templateSelectorCard) => {
-  const cardItem = new Card(data, templateSelectorCard, handleOpenPopup);
-  const cardElement = cardItem.generateCard();
-  cardsContainer.prepend(cardElement);
-}
-
 initialCards.forEach((cardItem) => {
-  renderCardList(cardItem, templateSelectorCard);
+  addCard(createCard(cardItem, templateSelectorCard));
 });
 
 profileForm.addEventListener('submit', saveProfile);
-newCardForm.addEventListener('submit', saveNewCard);
+newCardForm.addEventListener('submit', submitAddCardForm);
 editButton.addEventListener('click', () => { openProfilePopup() });
 addButton.addEventListener('click', () => { 
-    newCardValidation.resetValidation();
     openPopup(newCardForm);
+    newCardValidation.resetValidation();
 });
 
 popupList.forEach(popup => {

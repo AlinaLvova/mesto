@@ -19,7 +19,7 @@ export default class Card{
     }
 
     _handleClickLike() {
-        this._element.querySelector('.card__like').classList.toggle('card__like_active');
+        this._likeButton.classList.toggle('card__like_active');
     }
 
     _deleteElement(){
@@ -28,13 +28,13 @@ export default class Card{
     }
               
     _setEventListener() {
-        this._element.querySelector('.card__like').addEventListener('click', () => {
+        this._likeButton.addEventListener('click', () => {
             this._handleClickLike();
         });
-        this._element.querySelector('.card__image').addEventListener('click', () => { 
+        this._cardImage.addEventListener('click', () => { 
             this._handleOpenPopup(this._name, this._link); 
         });
-        this._element.querySelector('.card__delete').addEventListener('click', () => {
+        this._deleteButton.addEventListener('click', () => {
              this._deleteElement(); 
         });
     }
@@ -45,11 +45,15 @@ export default class Card{
 
     generateCard(){
         this._element = this._getTemplate();
+        this._likeButton = this._element.querySelector('.card__like');
+        this._cardImage = this._element.querySelector('.card__image');
+        this._deleteButton = this._element.querySelector('.card__delete');
+
         this._setEventListener();
 
         this._element.querySelector('.card__title').textContent = this._name;
-        this._element.querySelector('.card__image').src = this._link;
-        this._element.querySelector('.card__image').alt = "Фото пользователя " + this._name;
+        this._cardImage.src = this._link;
+        this._cardImage.alt = "Фото пользователя " + this._name;
 
         return this._element;
     }
