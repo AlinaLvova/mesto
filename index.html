@@ -14,7 +14,6 @@
         <header class="header">
             <img src="./images/logo.svg" alt="Надписи Место и Россия." class="header__logo">
         </header>
-
         <main class="content">
             <section class="profile">
                 <div class="profile__info-group">
@@ -36,19 +35,21 @@
                 </ul>
             </section>
         </main>
-
         <footer class="footer">
             <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
         </footer>
-
         <div class="popup" id="popup-edit-form">
             <div class="popup__container">
                 <button class="popup__close-btn link" id="close-btn-edit" type="button"
                     aria-label="close edit form"></button>
-                <form class="popup__edit-form" method="POST" name="edit-form">
+                <form class="popup__edit-form" method="POST" name="edit-form" novalidate>
                     <h3 class="popup__title">Редактировать профиль</h3>
-                    <input id="input-name" name="user-name" type="text" class="popup__input-field">
-                    <input id="input-descrpt" name="user-descrpt" type="text" class="popup__input-field">
+                    <input id="input-name" name="user-name" type="text" class="popup__input-field" placeholder="Имя"
+                        minlength="2" maxlength="40" required>
+                    <span class="input-name-error popup__input-field-error"></span>
+                    <input id="input-descrpt" name="user-descrpt" type="text" class="popup__input-field"
+                        placeholder="О себе" minlength="2" maxlength="200" required>
+                    <span class="input-descrpt-error popup__input-field-error"></span>
                     <button class="popup__submit-btn link" type="submit">Сохранить</button>
                 </form>
             </div>
@@ -57,22 +58,24 @@
             <div class="popup__container">
                 <button class="popup__close-btn link" id="close-btn-add" type="button"
                     aria-label="close add form"></button>
-                <form class="popup__edit-form" method="POST" name="add-form">
+                <form class="popup__edit-form" method="POST" name="add-form" novalidate>
                     <h3 class="popup__title">Новое место</h3>
                     <input id="input-title" name="input-title" type="text" class="popup__input-field"
-                        placeholder="Название">
-                    <input id="input-link" name="input-link-on-img" type="text" class="popup__input-field"
-                        placeholder="Ссылка на картинку">
+                        placeholder="Название" minlength="2" maxlength="30" required>
+                    <span class="input-title-error popup__input-field-error"></span>
+                    <input id="input-link" name="input-link-on-img" type="url" class="popup__input-field"
+                        placeholder="Ссылка на картинку" required>
+                    <span class="input-link-error popup__input-field-error"></span>
                     <button class="popup__submit-btn link" type="submit">Создать</button>
                 </form>
             </div>
         </div>
         <div class="popup popup_opacity-img" id="popup-open-img">
             <div class="popup__big-img-container">
-                <button class="popup__close-btn link" id="close-btn-img" type="button"
-                    aria-label="close img popup"></button>
                 <img class="popup__image" src="./images/penguin.jpg" type="button">
                 <figcaption class="popup__figcaption"></figcaption>
+                <button class="popup__close-btn link" id="close-btn-img" type="button"
+                    aria-label="close img popup"></button>
             </div>
         </div>
     </div>
@@ -89,8 +92,7 @@
             </article>
         </li>
     </template>
-
-    <script src="./scripts/index.js"></script>
+    <script type="module" src="./scripts/index.js"></script>
 </body>
 
 </html>

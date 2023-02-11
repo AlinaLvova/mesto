@@ -1,0 +1,18 @@
+.popup__input-field-error {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 15px;
+    color: #FF0000;
+    display: block;
+    margin: 0;
+    box-sizing: border-box;
+    padding-top: 5px;
+    min-height: 35px;
+}
+
+@media screen and (max-width: 880px){
+    .popup__input-field-error{
+        font-size: 10px;
+        line-height: 12px;
+    }
+}
