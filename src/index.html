@@ -6,18 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Alina Lvova">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 
 <body class="page">
     <div class="page__container">
         <header class="header">
-            <img src="./images/logo.svg" alt="Надписи Место и Россия." class="header__logo">
+            <img src="<%=require('./images/logo.svg')%>" alt="Надписи Место и Россия." class="header__logo">
         </header>
         <main class="content">
             <section class="profile">
                 <div class="profile__info-group">
-                    <div class="profile__avatar" style="background-image: url('./images/jakiv-kusto.jpg');"
+                    <div class="profile__avatar" style="background-image: url('<%=require(`./images/jakiv-kusto.jpg`)%>');"
                         alt="Аватар. Портрет Жака Ива Кусто в красной шапке на фоне моря." ></div>
                     <div class="profile__info">
                         <div class="profile__group-name-btn">
@@ -72,7 +71,7 @@
         </div>
         <div class="popup popup_opacity-img" id="popup-open-img">
             <div class="popup__big-img-container">
-                <img class="popup__image" src="./images/penguin.jpg" type="button">
+                <img class="popup__image" type="button">
                 <figcaption class="popup__figcaption"></figcaption>
                 <button class="popup__close-btn link" id="close-btn-img" type="button"
                     aria-label="close img popup"></button>
@@ -92,7 +91,6 @@
             </article>
         </li>
     </template>
-    <script type="module" src="./pages/index.js"></script>
 </body>
 
 </html>
