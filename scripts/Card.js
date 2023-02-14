@@ -1,11 +1,10 @@
-import {openPopup} from './common.js';
-
 export default class Card{
-    constructor(data, templateSelector, handleOpenPopup){
+    constructor(data, templateSelector, handleCardClick){
         this._name = data.name;
         this._link = data.link;
         this._templateSelector = templateSelector; 
-        this._handleOpenPopup = handleOpenPopup;  
+        //функция открытия попапа с картинкой по клику на карточку
+        this._handleCardClick = handleCardClick;  
     }
 
     _getTemplate() {
@@ -18,6 +17,7 @@ export default class Card{
         return cardElement;
     }
 
+    //функция обработчика нажатия на лайк карточки
     _handleClickLike() {
         this._likeButton.classList.toggle('card__like_active');
     }
@@ -32,7 +32,7 @@ export default class Card{
             this._handleClickLike();
         });
         this._cardImage.addEventListener('click', () => { 
-            this._handleOpenPopup(this._name, this._link); 
+            this._handleCardClick(this._name, this._link); 
         });
         this._deleteButton.addEventListener('click', () => {
              this._deleteElement(); 
