@@ -91,7 +91,6 @@ const addCardForm = new PopupWithForm(
   {
     containerSelector: '#popup-add-form',
     handleSubmitForm: (formData) => {
-      console.log(formData);
       const dataCard = { name: formData['input-title'], link: formData['input-link-on-img']};
       cardList.addItem(createCard(dataCard, templateSelectorCard));
       addCardForm.close();

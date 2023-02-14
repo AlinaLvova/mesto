@@ -2,6 +2,6 @@
     width: 120px;
     height: 120px;
     border-radius: 100%;
-    object-position: center center;
-    object-fit: cover;
+    background: center;
+    background-size: 120px 120px;
 }
