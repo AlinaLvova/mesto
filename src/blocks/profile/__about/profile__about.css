@@ -1,4 +1,4 @@
-.profile__description {
+.profile__about {
     font-family: 'Inter', Arial, Helvetica, sans-serif;
     font-style: normal;
     font-weight: 400;
@@ -6,7 +6,7 @@
     line-height: 22px;
     margin: 0;
     color: #fff;
-    grid-area: description;
+    grid-area: about;
     max-width: 100%;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -17,7 +17,7 @@
 }
 
 @media screen and (max-width: 870px) {
-    .profile__description {
+    .profile__about {
         font-size: calc( (100vw - 320px)/(880 - 320) * (18 - 14) + 14px);
         line-height: calc( (100vw - 320px)/(880 - 320) * (22 - 17) + 17px);
         text-align: center;
@@ -25,7 +25,7 @@
 }
 
 @media screen and (max-width: 550px) {
-    .profile__description {
+    .profile__about {
         width: 85vw;
     }
 }

@@ -1,4 +1,4 @@
-import {initialCards} from '../components/constants.js'
+import {initialCards, templateSelectorCard} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -16,10 +16,8 @@ const cardImagePopup = new PopupWithImage('#popup-open-img');
 //установить обработчики событий на попап с картинкой
 cardImagePopup.setEventListeners();
 
-const templateSelectorCard = '#cards-list-template';
-
 const validationConfig = {
-  formSelector: '.popup__edit-form',
+  formSelector: '.popup__form',
   inputSelector: '.popup__input-field',
   submitButtonSelector: '.popup__submit-btn',
   inactiveButtonClass: 'popup__submit-btn_disabled',
@@ -27,13 +25,23 @@ const validationConfig = {
   errorClass: 'popup__input-field-error_visible'
 };
 
-//объект валидации для формы пользователя
-const profileValidation = new FormValidator(validationConfig, document.querySelector('#popup-edit-form'));
-profileValidation.enableValidation();
+const formValidators = {}
 
-//объект валидации для формы добавления новой карточки
-const newCardValidation = new FormValidator(validationConfig, document.querySelector('#popup-add-form'));
-newCardValidation.enableValidation();
+// Включение валидации
+const enableValidation = (config) => {
+  const formList = Array.from(document.querySelectorAll(config.formSelector))
+  formList.forEach((formElement) => {
+    const validator = new FormValidator(config, formElement)
+    // получаем данные из атрибута `name` у формы
+    const formName = formElement.getAttribute('name')
+
+    // вот тут в объект записываем под именем формы
+    formValidators[formName] = validator;
+    validator.enableValidation();
+  });
+};
+
+enableValidation(validationConfig);
 
 //создание карточки. _templateSelectorCard необходим для выбора типа показа карточки(горизонтального или по умолчанию) 
 function createCard(dataCard, _templateSelectorCard) {
@@ -79,26 +87,18 @@ addCardForm.setEventListeners();
 //обработчик события нажатие на кнопку добавить карточку
 addButton.addEventListener('click', () => {
   addCardForm.open();
-  newCardValidation.resetValidation();
+  formValidators['add-form'].resetValidation()
 });
 
 //создание объекта пользователь
-const user = new UserInfo('.profile__name', '.profile__description');
-
-//данные для заполнения в форме редактирования информации о пользователе
-const userData = {   
-   '#input-name': document.querySelector('.profile__name').textContent,
-   '#input-descrpt': document.querySelector('.profile__description').textContent
-}
+const user = new UserInfo('.profile__name', '.profile__about');
 
 //создание объекта формы для редактирования данных о пользователе
 const profileForm = new PopupWithForm(
   {
     containerSelector: '#popup-edit-form',
     handleSubmitForm: (formData) => {
-      user.setUserInfo(formData['user-name'], formData['user-descrpt']);
-      userData['#input-name'] = formData['user-name'];
-      userData['#input-descrpt'] = formData['user-descrpt'];
+      user.setUserInfo(formData['user-name'], formData['user-about']);
       profileForm.close();
     }
   }
@@ -109,9 +109,10 @@ profileForm.setEventListeners();
 
 //обработчик события нажатие на кнопку редактировать данные
 editButton.addEventListener('click', () => {
-  profileForm.setInputValues(userData);
+  const {name, about} = user.getUserInfo();
+  profileForm.setInputValues({"user-name": name, "user-about": about});
   profileForm.open();
-  profileValidation.resetValidation();
+  formValidators['edit-form'].resetValidation()
 });
 
 

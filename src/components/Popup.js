@@ -1,15 +1,16 @@
 export default class Popup{
     constructor(containerSelector){
         this._element = document.querySelector(containerSelector);
+        this._handleEscClose = this._handleEscClose.bind(this);
     }
 
     open(){
-        document.addEventListener('keydown', (evt) => {this._handleEscClose(evt);});
+        document.addEventListener('keydown', this._handleEscClose);
         this._element.classList.add('popup_opened');    
     }
 
     close(){
-        document.removeEventListener('keydown', (evt) => {this._handleEscClose(evt);});
+        document.removeEventListener('keydown', this._handleEscClose);
         this._element.classList.remove('popup_opened');      
     }
 
@@ -25,7 +26,7 @@ export default class Popup{
         closeButton.addEventListener('click', () => this.close());
   
         //добавить обработчик для закрытия по overlay
-        this._element.addEventListener('click', (evt) => {
+        this._element.addEventListener('mousedown', (evt) => {
             if (evt.target.classList.contains('popup')) {
               this.close();
             }
