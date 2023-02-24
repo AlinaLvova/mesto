@@ -87,6 +87,19 @@
                 </form>
             </div>
         </div>
+        <div class="popup popup_opened" id="popup-update-avatar">
+            <div class="popup__container">
+                <button class="popup__close-btn link" id="close-btn-update-avatar" type="button"
+                    aria-label="close update avatar form"></button>
+                <form class="popup__form" method="POST" name="update-avatar-form" novalidate>
+                    <h3 class="popup__title">Обновить аватар</h3>
+                    <input id="input-link" name="input-link-on-img" type="url" class="popup__input-field"
+                        placeholder="Ссылка на картинку" required>
+                    <span class="input-link-error popup__input-field-error"></span>
+                    <button class="popup__submit-btn link" type="submit">Да</button>
+                </form>
+            </div>
+        </div>
     </div>
 
     <template id="cards-list-template">
