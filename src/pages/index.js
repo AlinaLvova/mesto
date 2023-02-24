@@ -1,11 +1,23 @@
-import {initialCards, templateSelectorCard} from '../utils/constants.js';
+import { initialCards, templateSelectorCard } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
-import Section  from '../components/Section.js';
+import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
 import './index.css';
+
+const apiConfig = {
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-60',
+  headers: {
+    'Authorization': '615ec7c0-c05d-4e3c-8fba-c9ef3b1c5572',
+    'Content-Type': 'application/json'
+  }
+}
+
+//api
+const api = new Api(apiConfig);
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -47,16 +59,20 @@ enableValidation(validationConfig);
 function createCard(dataCard, _templateSelectorCard) {
   const newAddCard = new Card(
     dataCard,
-    _templateSelectorCard,
-    (titleImage, linkImage) => {
+    _templateSelectorCard, {
+    handleCardClick: (titleImage, linkImage) => {
       cardImagePopup.open(titleImage, linkImage);
-    });
+    },
+    handleLikeCard: () => {
+
+    }
+  });
   return newAddCard.generateCard();
 }
 
 //создание списка карточек для отображения
 const cardList = new Section({
-  data: initialCards,
+  data: [],
   renderer: (item) => {
     //создание карточки
     const card = createCard(item, templateSelectorCard);
@@ -67,27 +83,37 @@ const cardList = new Section({
 }, '.gallery__list');
 
 //отображение карточек на странице
-cardList.renderItems();
+//cardList.renderItems();
+
+api.getCardList().then((cards) => {
+  cards.slice().reverse().forEach((card) => {
+    console.log(card.createdAt, card.name);
+    cardList.addItem(createCard(card, templateSelectorCard));
+  });
+});
 
 //объект формы добавления карточки
-const addCardForm = new PopupWithForm(
+const popupAddCardForm = new PopupWithForm(
   {
     containerSelector: '#popup-add-form',
-    handleSubmitForm: (formData) => {
-      const dataCard = { name: formData['input-title'], link: formData['input-link-on-img']};
-      cardList.addItem(createCard(dataCard, templateSelectorCard));
-      addCardForm.close();
+    handleSubmitForm: (data) => {
+      api.addNewCard(data)
+      .then((dataCard) => {
+        cardList.addItem(createCard(dataCard, templateSelectorCard));
+      });
+      //cardList.addItem(createCard(dataCard, templateSelectorCard));
+      popupAddCardForm.close();
     }
   }
 );
 
 //установить слушатели событий на 
-addCardForm.setEventListeners();
+popupAddCardForm.setEventListeners();
 
 //обработчик события нажатие на кнопку добавить карточку
 addButton.addEventListener('click', () => {
-  addCardForm.open();
-  formValidators['add-form'].resetValidation()
+  popupAddCardForm.open();
+  formValidators['add-form'].resetValidation();
 });
 
 //создание объекта пользователь
@@ -109,8 +135,8 @@ profileForm.setEventListeners();
 
 //обработчик события нажатие на кнопку редактировать данные
 editButton.addEventListener('click', () => {
-  const {name, about} = user.getUserInfo();
-  profileForm.setInputValues({"user-name": name, "user-about": about});
+  const { name, about } = user.getUserInfo();
+  profileForm.setInputValues({ "user-name": name, "user-about": about });
   profileForm.open();
   formValidators['edit-form'].resetValidation()
 });
