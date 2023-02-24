@@ -7,6 +7,7 @@ export default class Section {
 
     addItem(item) {
         this._element.prepend(item);
+        this._renderedItems.push(item);
     }
 
     clear() {
