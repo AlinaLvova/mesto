@@ -35,7 +35,7 @@
             </section>
         </main>
         <footer class="footer">
-            <p class="footer__copyright">&#169; 2020 Mesto Russia</p>
+            <p class="footer__copyright">&#169; 2023 Mesto Russia</p>
         </footer>
         <div class="popup" id="popup-edit-form">
             <div class="popup__container">
@@ -59,10 +59,10 @@
                     aria-label="close add form"></button>
                 <form class="popup__form" method="POST" name="add-form" novalidate>
                     <h3 class="popup__title">Новое место</h3>
-                    <input id="input-title" name="input-title" type="text" class="popup__input-field"
+                    <input id="input-title" name="name" type="text" class="popup__input-field"
                         placeholder="Название" minlength="2" maxlength="30" required>
                     <span class="input-title-error popup__input-field-error"></span>
-                    <input id="input-link" name="input-link-on-img" type="url" class="popup__input-field"
+                    <input id="input-link" name="link" type="url" class="popup__input-field"
                         placeholder="Ссылка на картинку" required>
                     <span class="input-link-error popup__input-field-error"></span>
                     <button class="popup__submit-btn link" type="submit">Создать</button>
