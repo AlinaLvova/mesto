@@ -87,7 +87,7 @@
                 </form>
             </div>
         </div>
-        <div class="popup popup_opened" id="popup-update-avatar">
+        <div class="popup" id="popup-update-avatar">
             <div class="popup__container">
                 <button class="popup__close-btn link" id="close-btn-update-avatar" type="button"
                     aria-label="close update avatar form"></button>
@@ -109,7 +109,10 @@
                 <img class="card__image">
                 <div class="card__footer">
                     <h2 class="card__title"></h2>
-                    <button class="card__like link" type="button" aria-label="liked"></button>
+                    <div class="card__like-container">
+                        <button class="card__like link" type="button" aria-label="liked"></button>
+                        <h4 class="card__like-counter"></h4>
+                    </div>
                 </div>
             </article>
         </li>
