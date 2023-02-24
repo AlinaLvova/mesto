@@ -58,6 +58,7 @@ export default class Card{
         this._element.querySelector('.card__title').textContent = this._name;
         this._cardImage.src = this._link;
         this._cardImage.alt = "Фото пользователя " + this._name;
+        this._element.querySelector('.card__like-counter').textContent = (this._likes.length > 0) ? this._likes.length : "";
 
         return this._element;
     }

@@ -87,7 +87,7 @@ const cardList = new Section({
 
 api.getCardList().then((cards) => {
   cards.slice().reverse().forEach((card) => {
-    console.log(card.createdAt, card.name);
+    console.log(card.likes.length);
     cardList.addItem(createCard(card, templateSelectorCard));
   });
 });
