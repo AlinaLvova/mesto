@@ -35,26 +35,38 @@ GET <https://nomoreparties.co/v1/cohortId/users/me>
 
 Загрузка информации о пользователе с сервера. Поля name, about и avatar.
 
+
+
 GET <https://mesto.nomoreparties.co/v1/cohortId/cards>
 
 Загрузка карточек с сервера. name и link — это заголовок и ссылка на картинку
 
+
+
 POST <https://mesto.nomoreparties.co/v1/cohortId/cards>
 
 Создание карточки, обязательные поля: name и link
+
+
 
 PATCH <https://mesto.nomoreparties.co/v1/cohortId/users/me>
 
 Обновление информации о пользователе.
 В заголовках запроса, кроме токена, необходимо отправить Content-Type, а в теле — JSON с двумя свойствами — name и about
 
+
+
 DELETE <https://mesto.nomoreparties.co/v1/cohortId/cards/cardId>
 
 Удаление карточки. Вместо cardId в URL нужно подставить параметр _id карточки, которую нужно удалить. Пример запроса: DELETE <https://mesto.nomoreparties.co/v1/cohortId/cards/5d1f0611d321eb4bdcd707dd>
 
+
+
 PUT <https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes>
 
 Поставить лайк карточке
+
+
 
 DELETE <https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes>
 
@@ -62,6 +74,8 @@ DELETE <https://mesto.nomoreparties.co/v1/cohortId/cards/cardId/likes>
 
 Вместо cardId в URL нужно подставить свойство _id соответствующей карточки.
 В ответе придёт обновлённый JSON с карточкой. Массив лайков в нём будет уже обновлён
+
+
 
 PATCH <https://mesto.nomoreparties.co/v1/cohortId/users/me/avatar>
 
