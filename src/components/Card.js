@@ -1,10 +1,14 @@
 export default class Card{
-    constructor(data, templateSelector, handleCardClick){
+    constructor(data, templateSelector, {handleCardClick, handleDeleteCard, handleLikeCard}){
         this._name = data.name;
         this._link = data.link;
+        this._likes = data.likes;
+        this._id = data._id;
+        this._owner = data.owner;
         this._templateSelector = templateSelector; 
         //функция открытия попапа с картинкой по клику на карточку
-        this._handleCardClick = handleCardClick;  
+        this._handleCardClick = handleCardClick; 
+
     }
 
     _getTemplate() {
@@ -23,7 +27,7 @@ export default class Card{
     }
 
     _deleteElement(){
-        this._element.remove();
+        this._element.move();
         this._element = null;
     }
               
