@@ -46,6 +46,24 @@ export default class Api{
         .then(handleResponse);
     }
     
+    //поставить лайк карточке
+    setLike(cardId){
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+            headers: this.headers,
+            method: 'PUT'
+        })
+        .then(handleResponse);
+    }
+
+    //убрать лайк с карточки
+    deleteLike(cardId){
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
+            headers: this.headers,
+            method: 'DELETE'
+        })
+        .then(handleResponse);
+    }
+
     deleteCard(id){
         return fetch(`${this.baseUrl}/cards`, {
             headers: this.headers,

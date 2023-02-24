@@ -63,7 +63,19 @@ function createCard(dataCard, _templateSelectorCard) {
     handleCardClick: (titleImage, linkImage) => {
       cardImagePopup.open(titleImage, linkImage);
     },
-    handleLikeCard: () => {
+    handleLikeClick: (isActiveButton) => {
+      if (isActiveButton) {
+        api.setLike(dataCard._id)
+        .then((dataCard) => {
+          console.log(dataCard);
+          newAddCard.updateCounterLikes(dataCard.likes.length);
+        });
+      }else{
+        api.deleteLike(dataCard._id)
+        .then((dataCard) => {
+          newAddCard.updateCounterLikes(dataCard.likes.length);
+        });
+      }
 
     }
   });
@@ -87,7 +99,6 @@ const cardList = new Section({
 
 api.getCardList().then((cards) => {
   cards.slice().reverse().forEach((card) => {
-    console.log(card.likes.length);
     cardList.addItem(createCard(card, templateSelectorCard));
   });
 });
