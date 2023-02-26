@@ -40,7 +40,7 @@ export default class Api{
 
     //обновить аватар
     updateAvatar(avatar){
-        return fetch(`${this.baseUrl}/users/me`, {
+        return fetch(`${this.baseUrl}/users/me/avatar`, {
             headers: this.headers,
             method: 'PATCH',
             body: JSON.stringify({
