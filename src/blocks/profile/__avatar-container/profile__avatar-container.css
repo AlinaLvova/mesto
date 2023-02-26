@@ -1,0 +1,16 @@
+.profile__avatar-container{
+    position: relative;
+    margin: 0;
+    padding: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+    transition: opacity .8s ease-in-out;
+}
+  
+.profile__avatar-container:hover .profile__avatar {
+     opacity: 0.25;
+}

@@ -38,6 +38,19 @@ export default class Api{
         .then(handleResponse);
     }
 
+    //обновить аватар
+    updateAvatar(avatar){
+        return fetch(`${this.baseUrl}/users/me`, {
+            headers: this.headers,
+            method: 'PATCH',
+            body: JSON.stringify({
+                avatar: avatar
+            })
+        })
+        .then(handleResponse);
+    }
+
+    //получить информацию о пользователе
     getUserInfo(){
         return fetch(`${this.baseUrl}/users/me`, {
             headers: this.headers,
@@ -64,7 +77,8 @@ export default class Api{
         .then(handleResponse);
     }
 
-    deleteCard(id){
+    //удалить карточку по id
+    deleteCard(cardId){
         return fetch(`${this.baseUrl}/cards`, {
             headers: this.headers,
             method: 'DELETE'
@@ -72,6 +86,7 @@ export default class Api{
         .then(handleResponse);
     }
 
+    //получить список карточек
     getCardList() {
         return fetch(`${this.baseUrl}/cards`, {
             headers: this.headers,
@@ -79,6 +94,7 @@ export default class Api{
         })
         .then(handleResponse);
     }
+
 
     // async getInitialCardList() {
     //     const response = await fetch(`${this.baseUrl}/cards`, {
