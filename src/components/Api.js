@@ -26,7 +26,7 @@ export default class Api{
     }
 
     //обновление данных о пользователе на сервере
-    updateUserInfo({name, about}){
+    updateUserInfo(name, about){
         return fetch(`${this.baseUrl}/users/me`, {
             headers: this.headers,
             method: 'PATCH',

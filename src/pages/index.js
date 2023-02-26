@@ -66,6 +66,7 @@ enableValidation(validationConfig);
 function createCard(dataCard, _templateSelectorCard) {
   const newAddCard = new Card(
     dataCard,
+    user.getUserInfo().id,
     _templateSelectorCard, {
     handleCardClick: (titleImage, linkImage) => {
       cardImagePopup.open(titleImage, linkImage);
@@ -83,7 +84,6 @@ function createCard(dataCard, _templateSelectorCard) {
           newAddCard.updateCounterLikes(dataCard.likes.length);
         });
       }
-
     }
   });
   return newAddCard.generateCard();
@@ -91,7 +91,6 @@ function createCard(dataCard, _templateSelectorCard) {
 
 //создание списка карточек для отображения
 const cardList = new Section({
-  data: [],
   renderer: (item) => {
     //создание карточки
     const card = createCard(item, templateSelectorCard);
@@ -101,12 +100,43 @@ const cardList = new Section({
   }
 }, '.gallery__list');
 
+
+
+
+// api.getUserInfo().then((userInfo) => {
+//   console.log(userInfo);
+  
+// });
+
+
 //получение списка карточек от сервера и отображение карточек на странице
-api.getCardList().then((cards) => {
-  cards.slice().reverse().forEach((card) => {
-    cardList.addItem(createCard(card, templateSelectorCard));
+// api.getCardList().then((cards) => {
+//   cards.slice().reverse().forEach((card) => {
+//     console.log(card.owner._id);
+//     console.log(userId);
+//     if(card.owner._id == userId){
+//       isOwner = true;
+//     }else{
+//       isOwner = false;
+//     }
+//     console.log(isOwner);
+//     cardList.addItem(createCard(card, isOwner, templateSelectorCard));
+//   });
+// });
+
+Promise.all([api.getUserInfo(), api.getCardList()])
+  .then(([infoData, cardListData]) => {
+    console.log(infoData);
+    console.log(infoData._id);
+
+    user.setUserInfo(infoData.name, infoData.about);
+    user.setAvatar(infoData.avatar);
+    user.setId(infoData._id);
+    cardList.renderItems(cardListData.reverse());
   });
-});
+  // .catch((err) => {
+  //   console.log(`Ошибка сервера: ${err}`);
+  // });
 
 //-----------------------------------------------------------------------------------------------------
 //попапы
@@ -114,18 +144,16 @@ api.getCardList().then((cards) => {
 //создание объекта пользователь
 const user = new UserInfo('.profile__name', '.profile__about', '.profile__avatar');
 
-api.getUserInfo().then((userInfo) => {
-  console.log(userInfo);
-  user.setUserInfo(userInfo.name, userInfo.about);
-  user.setAvatar(userInfo.avatar);
-});
 
 //создание объекта формы для редактирования данных о пользователе
 const profileForm = new PopupWithForm(
   {
     containerSelector: '#popup-edit-form',
     handleSubmitForm: (formData) => {
-      user.setUserInfo(formData['user-name'], formData['user-about']);
+      api.updateUserInfo(formData['user-name'], formData['user-about'])
+      .then((userData) => {
+        user.setUserInfo(userData.name, userData.about);
+      });
       profileForm.close();
     }
   }
@@ -150,9 +178,8 @@ const popupAvatarForm = new PopupWithForm(
       console.log(formData['input-link-on-img']);
       api.updateAvatar(formData['input-link-on-img'])
       .then((userData) => {
-        console.log(userData);
+        user.setAvatar(userData.avatar);
       });
-      user.setAvatar(formData['input-link-on-img']);
       popupAvatarForm.close();
     }
   }
