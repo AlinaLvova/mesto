@@ -29,6 +29,9 @@ const cardImagePopup = new PopupWithImage('#popup-open-img');
 //установить обработчики событий на попап с картинкой
 cardImagePopup.setEventListeners();
 
+//-----------------------------------------------------------------------------------
+
+//config для валидации форм
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input-field',
@@ -38,6 +41,7 @@ const validationConfig = {
   errorClass: 'popup__input-field-error_visible'
 };
 
+//массив форм валидации
 const formValidators = {}
 
 // Включение валидации
@@ -55,6 +59,8 @@ const enableValidation = (config) => {
 };
 
 enableValidation(validationConfig);
+
+//-----------------------------------------------------------------------------------------------------
 
 //создание карточки. _templateSelectorCard необходим для выбора типа показа карточки(горизонтального или по умолчанию) 
 function createCard(dataCard, _templateSelectorCard) {
@@ -95,21 +101,57 @@ const cardList = new Section({
   }
 }, '.gallery__list');
 
-//отображение карточек на странице
-//cardList.renderItems();
-
+//получение списка карточек от сервера и отображение карточек на странице
 api.getCardList().then((cards) => {
   cards.slice().reverse().forEach((card) => {
     cardList.addItem(createCard(card, templateSelectorCard));
   });
 });
 
+//-----------------------------------------------------------------------------------------------------
+//попапы
 
+//создание объекта пользователь
+const user = new UserInfo('.profile__name', '.profile__about', '.profile__avatar');
+
+api.getUserInfo().then((userInfo) => {
+  console.log(userInfo);
+  user.setUserInfo(userInfo.name, userInfo.about);
+  user.setAvatar(userInfo.avatar);
+});
+
+//создание объекта формы для редактирования данных о пользователе
+const profileForm = new PopupWithForm(
+  {
+    containerSelector: '#popup-edit-form',
+    handleSubmitForm: (formData) => {
+      user.setUserInfo(formData['user-name'], formData['user-about']);
+      profileForm.close();
+    }
+  }
+);
+
+//обработичик событий для формы
+profileForm.setEventListeners();
+
+//обработчик события нажатие на кнопку редактировать данные
+editButton.addEventListener('click', () => {
+  const { name, about } = user.getUserInfo();
+  profileForm.setInputValues({ "user-name": name, "user-about": about });
+  profileForm.open();
+  formValidators['edit-form'].resetValidation()
+});
+
+//объект попап для обновления аватара
 const popupAvatarForm = new PopupWithForm(
   {
     containerSelector: '#popup-update-avatar',
     handleSubmitForm: (formData) => {
       console.log(formData['input-link-on-img']);
+      api.updateAvatar(formData['input-link-on-img'])
+      .then((userData) => {
+        console.log(userData);
+      });
       user.setAvatar(formData['input-link-on-img']);
       popupAvatarForm.close();
     }
@@ -118,7 +160,11 @@ const popupAvatarForm = new PopupWithForm(
 
 popupAvatarForm.setEventListeners();
 
-
+//обработчик события нажатие на кнопку поменять аватар
+updateAvatarButton.addEventListener('click', () => {
+  popupAvatarForm.open();
+  formValidators['update-avatar-form'].resetValidation();
+});
 
 //объект формы добавления карточки
 const popupAddCardForm = new PopupWithForm(
@@ -144,36 +190,8 @@ addButton.addEventListener('click', () => {
   formValidators['add-form'].resetValidation();
 });
 
-updateAvatarButton.addEventListener('click', () => {
-  console.log('Есть нажатие');
-  popupAvatarForm.open();
-  formValidators['update-avatar-form'].resetValidation();
-});
+//-----------------------------------------------------------------------------------------------------
 
-//создание объекта пользователь
-const user = new UserInfo('.profile__name', '.profile__about', '.profile__avatar');
-
-//создание объекта формы для редактирования данных о пользователе
-const profileForm = new PopupWithForm(
-  {
-    containerSelector: '#popup-edit-form',
-    handleSubmitForm: (formData) => {
-      user.setUserInfo(formData['user-name'], formData['user-about']);
-      profileForm.close();
-    }
-  }
-);
-
-//обработичик событий для формы
-profileForm.setEventListeners();
-
-//обработчик события нажатие на кнопку редактировать данные
-editButton.addEventListener('click', () => {
-  const { name, about } = user.getUserInfo();
-  profileForm.setInputValues({ "user-name": name, "user-about": about });
-  profileForm.open();
-  formValidators['edit-form'].resetValidation()
-});
 
 
 
