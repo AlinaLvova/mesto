@@ -1,4 +1,4 @@
-import { initialCards, templateSelectorCard } from '../utils/constants.js';
+import {templateSelectorCard} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithForm from '../components/PopupWithForm.js';
@@ -21,6 +21,7 @@ const api = new Api(apiConfig);
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
+const updateAvatarButton = document.querySelector('.profile__avatar-button');
 
 //попап с увеличенной картинкой
 const cardImagePopup = new PopupWithImage('#popup-open-img');
@@ -103,6 +104,22 @@ api.getCardList().then((cards) => {
   });
 });
 
+
+const popupAvatarForm = new PopupWithForm(
+  {
+    containerSelector: '#popup-update-avatar',
+    handleSubmitForm: (formData) => {
+      console.log(formData['input-link-on-img']);
+      user.setAvatar(formData['input-link-on-img']);
+      popupAvatarForm.close();
+    }
+  }
+);
+
+popupAvatarForm.setEventListeners();
+
+
+
 //объект формы добавления карточки
 const popupAddCardForm = new PopupWithForm(
   {
@@ -127,8 +144,14 @@ addButton.addEventListener('click', () => {
   formValidators['add-form'].resetValidation();
 });
 
+updateAvatarButton.addEventListener('click', () => {
+  console.log('Есть нажатие');
+  popupAvatarForm.open();
+  formValidators['update-avatar-form'].resetValidation();
+});
+
 //создание объекта пользователь
-const user = new UserInfo('.profile__name', '.profile__about');
+const user = new UserInfo('.profile__name', '.profile__about', '.profile__avatar');
 
 //создание объекта формы для редактирования данных о пользователе
 const profileForm = new PopupWithForm(
@@ -151,5 +174,7 @@ editButton.addEventListener('click', () => {
   profileForm.open();
   formValidators['edit-form'].resetValidation()
 });
+
+
 
 
