@@ -1,6 +1,6 @@
 
 export default class Card{
-    constructor(data, idOwner, templateSelector, {handleCardClick, handleDeleteCard, handleLikeClick}){
+    constructor(data, idOwner, templateSelector, {handleCardClick, handleRemoveCard, handleLikeClick}){
         this._name = data.name;
         this._link = data.link;
         this._likes = data.likes;
@@ -11,7 +11,8 @@ export default class Card{
         //функция открытия попапа с картинкой по клику на карточку
         this._handleCardClick = handleCardClick; 
         this._handleLikeClick = handleLikeClick;
-        this._handleDeleteCard = handleDeleteCard;
+        this._handleRemoveCard = handleRemoveCard;
+        this._remove = this._remove.bind(this);
     }
 
     _getTemplate() {
@@ -29,10 +30,15 @@ export default class Card{
         this._likeButton.classList.toggle('card__like_active');
     }
 
-    _deleteElement(){
-        this._element.move();
+    _remove() {
+        this._handleRemoveCard(this._id);
+    }
+
+    delete(){
+        this._element.remove();
         this._element = null;
     }
+
          
     //обновить количество лайков
     updateCounterLikes(counter){
@@ -60,12 +66,13 @@ export default class Card{
             this._deleteButton = this._element.querySelector('.card__delete');
             this._deleteButton.classList.add('card__delete_active');
             this._deleteButton.addEventListener('click', () => {
-                this._deleteElement();
+                //this._remove();
+                this._handleRemoveCard(this._id);
             });
         }
     }
 
-    generateCard(){
+    generate(){
         this._element = this._getTemplate();
         this._likeButton = this._element.querySelector('.card__like');
         this._cardImage = this._element.querySelector('.card__image');

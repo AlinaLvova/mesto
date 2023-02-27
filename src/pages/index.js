@@ -6,6 +6,7 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
 import Api from '../components/Api.js';
+import PopupConfirm from '../components/PopupConfirm.js';
 import './index.css';
 
 const apiConfig = {
@@ -62,9 +63,15 @@ enableValidation(validationConfig);
 
 //-----------------------------------------------------------------------------------------------------
 
+//попап "подтвердить удаление"
+const popupConfirmDelete = new PopupConfirm('#popup-confirmation');
+popupConfirmDelete.setEventListeners();
+
+//-----------------------------------------------------------------------------------------------------
+
 //создание карточки. _templateSelectorCard необходим для выбора типа показа карточки(горизонтального или по умолчанию) 
 function createCard(dataCard, _templateSelectorCard) {
-  const newAddCard = new Card(
+  const card = new Card(
     dataCard,
     user.getUserInfo().id,
     _templateSelectorCard, {
@@ -76,17 +83,48 @@ function createCard(dataCard, _templateSelectorCard) {
         api.setLike(dataCard._id)
         .then((dataCard) => {
           console.log(dataCard);
-          newAddCard.updateCounterLikes(dataCard.likes.length);
+          card.updateCounterLikes(dataCard.likes.length);
         });
       }else{
         api.deleteLike(dataCard._id)
         .then((dataCard) => {
-          newAddCard.updateCounterLikes(dataCard.likes.length);
+          card.updateCounterLikes(dataCard.likes.length);
         });
       }
+    },
+    handleRemoveCard: (dataCard) => {
+      popupConfirmDelete.open({
+        handleSubmit: () => {
+          console.log(dataCard);
+          api.deleteCard(dataCard)
+          .then(() => {
+            card.delete();
+          })
+          .finally(() => {
+            popupConfirmDelete.close();
+          });
+        }
+      });
+
+      // const prom = new Promise((resolve, reject) => {
+      //   resolve(popupConfirm.open());
+      // });
+    //   popupConfirmDelete.open({
+    //     handleSubmit: ()=>{
+    //     api.deleteCard(dataCard._id)
+    //       .then(() => {
+    //         card.delete();
+    //       });
+    
+    //       .finally(() => {
+    //         //popupConfirmDelete.close();
+    //       });
+    //   }
+    // });
+    
     }
   });
-  return newAddCard.generateCard();
+  return card.generate();
 }
 
 //создание списка карточек для отображения
@@ -94,35 +132,10 @@ const cardList = new Section({
   renderer: (item) => {
     //создание карточки
     const card = createCard(item, templateSelectorCard);
-
     //добавление карточки
     cardList.addItem(card);
   }
 }, '.gallery__list');
-
-
-
-
-// api.getUserInfo().then((userInfo) => {
-//   console.log(userInfo);
-  
-// });
-
-
-//получение списка карточек от сервера и отображение карточек на странице
-// api.getCardList().then((cards) => {
-//   cards.slice().reverse().forEach((card) => {
-//     console.log(card.owner._id);
-//     console.log(userId);
-//     if(card.owner._id == userId){
-//       isOwner = true;
-//     }else{
-//       isOwner = false;
-//     }
-//     console.log(isOwner);
-//     cardList.addItem(createCard(card, isOwner, templateSelectorCard));
-//   });
-// });
 
 Promise.all([api.getUserInfo(), api.getCardList()])
   .then(([infoData, cardListData]) => {
@@ -144,6 +157,7 @@ Promise.all([api.getUserInfo(), api.getCardList()])
 //создание объекта пользователь
 const user = new UserInfo('.profile__name', '.profile__about', '.profile__avatar');
 
+popupConfirmDelete.setEventListeners();
 
 //создание объекта формы для редактирования данных о пользователе
 const profileForm = new PopupWithForm(
