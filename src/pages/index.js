@@ -53,7 +53,7 @@ const enableValidation = (config) => {
     // получаем данные из атрибута `name` у формы
     const formName = formElement.getAttribute('name')
 
-    // вот тут в объект записываем под именем формы
+    //в объект записываем под именем формы
     formValidators[formName] = validator;
     validator.enableValidation();
   });
@@ -82,7 +82,6 @@ function createCard(dataCard, _templateSelectorCard) {
       if (isActiveButton) {
         api.setLike(dataCard._id)
         .then((dataCard) => {
-          console.log(dataCard);
           card.updateCounterLikes(dataCard.likes.length);
         });
       }else{
@@ -95,7 +94,6 @@ function createCard(dataCard, _templateSelectorCard) {
     handleRemoveCard: (dataCard) => {
       popupConfirmDelete.open({
         handleSubmit: () => {
-          console.log(dataCard);
           api.deleteCard(dataCard)
           .then(() => {
             card.delete();
@@ -104,24 +102,7 @@ function createCard(dataCard, _templateSelectorCard) {
             popupConfirmDelete.close();
           });
         }
-      });
-
-      // const prom = new Promise((resolve, reject) => {
-      //   resolve(popupConfirm.open());
-      // });
-    //   popupConfirmDelete.open({
-    //     handleSubmit: ()=>{
-    //     api.deleteCard(dataCard._id)
-    //       .then(() => {
-    //         card.delete();
-    //       });
-    
-    //       .finally(() => {
-    //         //popupConfirmDelete.close();
-    //       });
-    //   }
-    // });
-    
+      });    
     }
   });
   return card.generate();
@@ -139,9 +120,6 @@ const cardList = new Section({
 
 Promise.all([api.getUserInfo(), api.getCardList()])
   .then(([infoData, cardListData]) => {
-    console.log(infoData);
-    console.log(infoData._id);
-
     user.setUserInfo(infoData.name, infoData.about);
     user.setAvatar(infoData.avatar);
     user.setId(infoData._id);
@@ -189,7 +167,6 @@ const popupAvatarForm = new PopupWithForm(
   {
     containerSelector: '#popup-update-avatar',
     handleSubmitForm: (formData) => {
-      console.log(formData['input-link-on-img']);
       api.updateAvatar(formData['input-link-on-img'])
       .then((userData) => {
         user.setAvatar(userData.avatar);
@@ -212,11 +189,10 @@ const popupAddCardForm = new PopupWithForm(
   {
     containerSelector: '#popup-add-form',
     handleSubmitForm: (data) => {
-      api.addNewCard(data)
+      api.sentCard(data)
       .then((dataCard) => {
         cardList.addItem(createCard(dataCard, templateSelectorCard));
       });
-      //cardList.addItem(createCard(dataCard, templateSelectorCard));
       popupAddCardForm.close();
     }
   }
