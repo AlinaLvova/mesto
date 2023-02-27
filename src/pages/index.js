@@ -147,30 +147,34 @@ const user = new UserInfo('.profile__name', '.profile__about', '.profile__avatar
 popupConfirmDelete.setEventListeners();
 
 //создание объекта формы для редактирования данных о пользователе
-const profileForm = new PopupWithForm(
+const popupProfileForm = new PopupWithForm(
   {
     containerSelector: '#popup-edit-form',
     handleSubmitForm: (formData) => {
+      popupProfileForm.renderLoading("Обновление...")
       api.updateUserInfo(formData['user-name'], formData['user-about'])
       .then((userData) => {
         user.setUserInfo(userData.name, userData.about);
+        popupProfileForm.close();
       })
       .catch((error) => {
         console.log(error.message);
+      })
+      .finally(() => {
+        popupProfileForm.renderLoading("Сохранить");
       });
-      profileForm.close();
     }
   }
 );
 
 //обработичик событий для формы
-profileForm.setEventListeners();
+popupProfileForm.setEventListeners();
 
 //обработчик события нажатие на кнопку редактировать данные
 editButton.addEventListener('click', () => {
   const { name, about } = user.getUserInfo();
-  profileForm.setInputValues({ "user-name": name, "user-about": about });
-  profileForm.open();
+  popupProfileForm.setInputValues({ "user-name": name, "user-about": about });
+  popupProfileForm.open();
   formValidators['edit-form'].resetValidation()
 });
 
@@ -178,15 +182,17 @@ editButton.addEventListener('click', () => {
 const popupAvatarForm = new PopupWithForm({
     containerSelector: '#popup-update-avatar',
     handleSubmitForm: (formData) => {
+      popupAvatarForm.renderLoading("Обновление аватара...");
       api.updateAvatar(formData['input-link-on-img'])
       .then((userData) => {
         user.setAvatar(userData.avatar);
+        popupAvatarForm.close();
       })
       .catch((error) => {
         console.log(error.message);
       })
       .finally(() => {
-        popupAvatarForm.close();
+        popupAvatarForm.renderLoading("Сохранить");
       });
     }
 });
@@ -204,15 +210,19 @@ const popupAddCardForm = new PopupWithForm(
   {
     containerSelector: '#popup-add-form',
     handleSubmitForm: (data) => {
+      popupAddCardForm.renderLoading("Сохранение...");
       api.sentCard(data)
       .then((dataCard) => {
         cardList.addItem(createCard(dataCard, templateSelectorCard));
+      })
+      .then(() => {
+        popupAddCardForm.close();
       })
       .catch((error) => {
         console.log(error.message);
       })
       .finally(() => {
-        popupAddCardForm.close();
+        popupAddCardForm.renderLoading("Создать");
       });
     }
   }
