@@ -22,10 +22,11 @@ export default class Api{
             })
         })
         .then((response) => {
-            return this._handleResponse(res, "Данные добавленной карты не были успешно получены сервером")
+            return this._handleResponse(response, "Данные добавленной карты не были успешно получены сервером")
         });
     }
 
+    
     //обновление данных о пользователе на сервере
     updateUserInfo(name, about){
         return fetch(`${this.baseUrl}/users/me`, {
@@ -37,7 +38,7 @@ export default class Api{
             })
         })
         .then((response) => {
-            return this._handleResponse(res, "Данные о пользователе не были успешно обновлены на сервере")
+            return this._handleResponse(response, "Данные о пользователе не были успешно обновлены на сервере")
         });
     }
 
@@ -51,7 +52,7 @@ export default class Api{
             })
         })
         .then((response) => {
-            return this._handleResponse(res, "Фото аватара не было успешно обновлено на сервере")
+            return this._handleResponse(response, "Фото аватара не было успешно обновлено на сервере")
         });
     }
 
@@ -62,7 +63,7 @@ export default class Api{
             method: 'GET'
         })
         .then((response) => {
-            return this._handleResponse(res, "Данные о пользователе не были успешно получены")
+            return this._handleResponse(response, "Данные о пользователе не были успешно получены")
         });
     }
     
@@ -73,7 +74,7 @@ export default class Api{
             method: 'PUT'
         })
         .then((response) => {
-            return this._handleResponse(res, "Данные о добавлении лайка карточке от попользователе не были успешно обновлены на сервере")
+            return this._handleResponse(response, "Данные о добавлении лайка карточке от попользователе не были успешно обновлены на сервере")
         });
     }
 
@@ -84,7 +85,7 @@ export default class Api{
             method: 'DELETE'
         })
         .then((response) => {
-            return this._handleResponse(res, "Данные об удалении лайка карточке от попользователе не были успешно обновлены на сервере")
+            return this._handleResponse(response, "Данные об удалении лайка карточке от попользователе не были успешно обновлены на сервере")
         });    }
 
     //удалить карточку по id
@@ -94,7 +95,7 @@ export default class Api{
             method: 'DELETE'
         })
         .then((response) => {
-            return this._handleResponse(res, "Данные о карточке попользователе не были успешно удалены на сервере")
+            return this._handleResponse(response, "Данные о карточке попользователе не были успешно удалены на сервере")
         });
     }
 
@@ -105,7 +106,7 @@ export default class Api{
             method: 'GET'
         })
         .then((response) => {
-            return this._handleResponse(res, "Данные о списке карт не были успешно получены")
+            return this._handleResponse(response, "Данные о списке карт не были успешно получены")
         });    
     }
 }   
