@@ -1,6 +1,4 @@
 export default class Api{
-    headers;
-
     constructor(config){
         this.baseUrl = config.baseUrl;
         this.headers = config.headers;
@@ -22,7 +20,10 @@ export default class Api{
                 name: name,
                 link: link
             })
-        }).then(_handleResponse);
+        })
+        .then((response) => {
+            return this._handleResponse(res, "Данные добавленной карты не были успешно получены сервером")
+        });
     }
 
     //обновление данных о пользователе на сервере
@@ -35,7 +36,9 @@ export default class Api{
                 about: about
             })
         })
-        .then(_handleResponse);
+        .then((response) => {
+            return this._handleResponse(res, "Данные о пользователе не были успешно обновлены на сервере")
+        });
     }
 
     //обновить аватар
@@ -47,7 +50,9 @@ export default class Api{
                 avatar: avatar
             })
         })
-        .then(_handleResponse);
+        .then((response) => {
+            return this._handleResponse(res, "Фото аватара не было успешно обновлено на сервере")
+        });
     }
 
     //получить информацию о пользователе
@@ -56,7 +61,9 @@ export default class Api{
             headers: this.headers,
             method: 'GET'
         })
-        .then(_handleResponse);
+        .then((response) => {
+            return this._handleResponse(res, "Данные о пользователе не были успешно получены")
+        });
     }
     
     //поставить лайк карточке
@@ -65,7 +72,9 @@ export default class Api{
             headers: this.headers,
             method: 'PUT'
         })
-        .then(_handleResponse);
+        .then((response) => {
+            return this._handleResponse(res, "Данные о добавлении лайка карточке от попользователе не были успешно обновлены на сервере")
+        });
     }
 
     //убрать лайк с карточки
@@ -74,8 +83,9 @@ export default class Api{
             headers: this.headers,
             method: 'DELETE'
         })
-        .then(_handleResponse);
-    }
+        .then((response) => {
+            return this._handleResponse(res, "Данные об удалении лайка карточке от попользователе не были успешно обновлены на сервере")
+        });    }
 
     //удалить карточку по id
     deleteCard(cardId){
@@ -83,7 +93,9 @@ export default class Api{
             headers: this.headers,
             method: 'DELETE'
         })
-        .then(_handleResponse);
+        .then((response) => {
+            return this._handleResponse(res, "Данные о карточке попользователе не были успешно удалены на сервере")
+        });
     }
 
     //получить список карточек
@@ -92,30 +104,8 @@ export default class Api{
             headers: this.headers,
             method: 'GET'
         })
-        .then(_handleResponse);
+        .then((response) => {
+            return this._handleResponse(res, "Данные о списке карт не были успешно получены")
+        });    
     }
-
-    // async getInitialCardList() {
-    //     const response = await fetch(`${this.baseUrl}/cards`, {
-    //         headers: this.headers,
-    //         method: 'GET'
-    //     });
-    //     const cards = await response.json();
-    //     return cards;
-    // }
-
-    // async createCard({name, link}){
-    //     const response = await fetch(`${this.baseUrl}/cards`, {
-    //         headers: {
-    //             'Authorization': this.headers.Authorization
-    //         },
-    //         method: 'POST',
-    //         body: JSON.stringify({
-    //             name: name,
-    //             link: link
-    //           })
-    //     });
-    //     const data = await response.json();
-    //     return data;
-    // }
 }   
