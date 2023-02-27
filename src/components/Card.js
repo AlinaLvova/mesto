@@ -39,17 +39,26 @@ export default class Card{
         this._element = null;
     }
 
-         
     //обновить количество лайков
     updateCounterLikes(counter){
         this._element.querySelector('.card__like-counter').textContent = (counter > 0) ? counter : "";
     }
 
+    //отрисовка лайков у тех карточек, которые понравились пользователю
+    _renderLikeIcon(){
+        this._likes.forEach((user) => {
+            if (this._idOwner === user._id){
+                this._element.querySelector('.card__like').classList.add('card__like_active');
+            }
+        });
+        
+    }
+
     _setEventListener() {
         this._likeButton.addEventListener('click', () => {
             this._toggleLike();
-            const f = this._likeButton.classList.contains('card__like_active');
-            this._handleLikeClick(f);
+            const isActiveLike = this._likeButton.classList.contains('card__like_active');
+            this._handleLikeClick(isActiveLike);
         });
         this._cardImage.addEventListener('click', () => { 
             this._handleCardClick(this._name, this._link); 
@@ -66,7 +75,6 @@ export default class Card{
             this._deleteButton = this._element.querySelector('.card__delete');
             this._deleteButton.classList.add('card__delete_active');
             this._deleteButton.addEventListener('click', () => {
-                //this._remove();
                 this._handleRemoveCard(this._id);
             });
         }
@@ -83,6 +91,7 @@ export default class Card{
         
         this.updateCounterLikes(this._likes.length);
         this._renderTrashIcon();
+        this._renderLikeIcon();
         this._setEventListener();
         return this._element;
     }
