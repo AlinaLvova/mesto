@@ -83,11 +83,17 @@ function createCard(dataCard, _templateSelectorCard) {
         api.setLike(dataCard._id)
         .then((dataCard) => {
           card.updateCounterLikes(dataCard.likes.length);
+        })
+        .catch((error) => {
+          console.log(error.message);
         });
       }else{
         api.deleteLike(dataCard._id)
         .then((dataCard) => {
           card.updateCounterLikes(dataCard.likes.length);
+        })
+        .catch((error) => {
+          console.log(error.message);
         });
       }
     },
@@ -97,6 +103,9 @@ function createCard(dataCard, _templateSelectorCard) {
           api.deleteCard(dataCard)
           .then(() => {
             card.delete();
+          })
+          .catch((error) => {
+            console.log(error.message);
           })
           .finally(() => {
             popupConfirmDelete.close();
@@ -124,11 +133,11 @@ Promise.all([api.getUserInfo(), api.getCardList()])
     user.setAvatar(infoData.avatar);
     user.setId(infoData._id);
     cardList.renderItems(cardListData.reverse());
+  })
+  .catch((error) => {
+    console.log(error.message);
   });
-  // .catch((err) => {
-  //   console.log(`Ошибка сервера: ${err}`);
-  // });
-
+  
 //-----------------------------------------------------------------------------------------------------
 //попапы
 
@@ -145,6 +154,9 @@ const profileForm = new PopupWithForm(
       api.updateUserInfo(formData['user-name'], formData['user-about'])
       .then((userData) => {
         user.setUserInfo(userData.name, userData.about);
+      })
+      .catch((error) => {
+        console.log(error.message);
       });
       profileForm.close();
     }
@@ -163,18 +175,21 @@ editButton.addEventListener('click', () => {
 });
 
 //объект попап для обновления аватара
-const popupAvatarForm = new PopupWithForm(
-  {
+const popupAvatarForm = new PopupWithForm({
     containerSelector: '#popup-update-avatar',
     handleSubmitForm: (formData) => {
       api.updateAvatar(formData['input-link-on-img'])
       .then((userData) => {
         user.setAvatar(userData.avatar);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })
+      .finally(() => {
+        popupAvatarForm.close();
       });
-      popupAvatarForm.close();
     }
-  }
-);
+});
 
 popupAvatarForm.setEventListeners();
 
@@ -192,8 +207,13 @@ const popupAddCardForm = new PopupWithForm(
       api.sentCard(data)
       .then((dataCard) => {
         cardList.addItem(createCard(dataCard, templateSelectorCard));
+      })
+      .catch((error) => {
+        console.log(error.message);
+      })
+      .finally(() => {
+        popupAddCardForm.close();
       });
-      popupAddCardForm.close();
     }
   }
 );
