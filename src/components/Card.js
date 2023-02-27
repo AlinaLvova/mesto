@@ -86,6 +86,7 @@ export default class Card{
         this._cardImage = this._element.querySelector('.card__image');
 
         this._element.querySelector('.card__title').textContent = this._name;
+
         this._cardImage.src = this._link;
         this._cardImage.alt = "Фото пользователя " + this._name;
         
@@ -93,6 +94,7 @@ export default class Card{
         this._renderTrashIcon();
         this._renderLikeIcon();
         this._setEventListener();
+
         return this._element;
     }
 }

@@ -216,7 +216,12 @@ const popupAddCardForm = new PopupWithForm(
         cardList.addItem(createCard(dataCard, templateSelectorCard));
       })
       .then(() => {
-        popupAddCardForm.close();
+        //не закрывать попап, пока картинка не загрузится
+        const list = document.querySelector('.gallery__list');
+        const loadingCard = list.firstElementChild.querySelector('.card__image');
+        loadingCard.addEventListener("load", function () {
+          popupAddCardForm.close();
+        });
       })
       .catch((error) => {
         console.log(error.message);
