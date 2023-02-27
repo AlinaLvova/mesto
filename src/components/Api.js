@@ -1,11 +1,3 @@
-// функция обработки результата ответа сервера
-const handleResponse = (response) => {
-    if (response.ok) {
-        return response.json();
-    }
-    return Promise.reject(new Error('Произошла ошибка получения данных с сервера'));
-};
-
 export default class Api{
     headers;
 
@@ -14,7 +6,15 @@ export default class Api{
         this.headers = config.headers;
     }
 
-    addNewCard({name, link}){
+    // функция обработки результата ответа сервера
+    _handleResponse (response, errorMessage) {
+        if (response.ok) {
+            return response.json();
+        }
+        return Promise.reject(new Error(`Ошибка: ${res.status}.${errorMessage}`));
+    };
+
+    sentCard({name, link}){
         return fetch(`${this.baseUrl}/cards`, {
             headers: this.headers,
             method: 'POST',
@@ -22,7 +22,7 @@ export default class Api{
                 name: name,
                 link: link
             })
-        }).then(handleResponse);
+        }).then(_handleResponse);
     }
 
     //обновление данных о пользователе на сервере
@@ -35,7 +35,7 @@ export default class Api{
                 about: about
             })
         })
-        .then(handleResponse);
+        .then(_handleResponse);
     }
 
     //обновить аватар
@@ -47,7 +47,7 @@ export default class Api{
                 avatar: avatar
             })
         })
-        .then(handleResponse);
+        .then(_handleResponse);
     }
 
     //получить информацию о пользователе
@@ -56,7 +56,7 @@ export default class Api{
             headers: this.headers,
             method: 'GET'
         })
-        .then(handleResponse);
+        .then(_handleResponse);
     }
     
     //поставить лайк карточке
@@ -65,7 +65,7 @@ export default class Api{
             headers: this.headers,
             method: 'PUT'
         })
-        .then(handleResponse);
+        .then(_handleResponse);
     }
 
     //убрать лайк с карточки
@@ -74,7 +74,7 @@ export default class Api{
             headers: this.headers,
             method: 'DELETE'
         })
-        .then(handleResponse);
+        .then(_handleResponse);
     }
 
     //удалить карточку по id
@@ -83,7 +83,7 @@ export default class Api{
             headers: this.headers,
             method: 'DELETE'
         })
-        .then(handleResponse);
+        .then(_handleResponse);
     }
 
     //получить список карточек
@@ -92,9 +92,8 @@ export default class Api{
             headers: this.headers,
             method: 'GET'
         })
-        .then(handleResponse);
+        .then(_handleResponse);
     }
-
 
     // async getInitialCardList() {
     //     const response = await fetch(`${this.baseUrl}/cards`, {
@@ -119,5 +118,4 @@ export default class Api{
     //     const data = await response.json();
     //     return data;
     // }
-
 }   
