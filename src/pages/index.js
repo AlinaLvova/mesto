@@ -183,7 +183,7 @@ const popupAvatarForm = new PopupWithForm({
     containerSelector: '#popup-update-avatar',
     handleSubmitForm: (formData) => {
       popupAvatarForm.renderLoading("Обновление аватара...");
-      api.updateAvatar(formData['input-link-on-img'])
+      api.updateAvatar(formData['input-link-on-avatar'])
       .then((userData) => {
         user.setAvatar(userData.avatar);
         popupAvatarForm.close();

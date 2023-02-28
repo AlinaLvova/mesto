@@ -6,8 +6,6 @@
     height: 120px;
     border-radius: 50%;
     box-sizing: border-box;
-    padding: 0;
-    margin: 0;
     transition: opacity .8s ease-in-out;
 }
   
