@@ -72,7 +72,6 @@ export default class Card {
     });
     this._cardImage.addEventListener('error', (error) => {
       this._cardImage.src = require('../images/404-Page.jpg');
-      console.log(error);
     })
   }
 
