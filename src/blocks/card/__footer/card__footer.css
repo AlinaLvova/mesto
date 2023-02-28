@@ -1,7 +1,7 @@
-.card__footer{
-    display: flex;
-    padding: 17px 15px 21px 21px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.card__footer {
+  display: flex;
+  padding: 17px 15px 21px 21px;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

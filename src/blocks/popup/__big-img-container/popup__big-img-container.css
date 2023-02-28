@@ -1,11 +1,11 @@
-.popup__big-img-container{
-    max-width: 90%;
-    position: relative;
-    z-index: 15;
+.popup__big-img-container {
+  max-width: 90%;
+  position: relative;
+  z-index: 15;
 }
 
-@media screen and (max-width: 650px){
-    .popup__big-img-container{
-        max-width: 80%;
-    }
+@media screen and (max-width: 650px) {
+  .popup__big-img-container {
+    max-width: 80%;
+  }
 }

@@ -1,14 +1,14 @@
-.profile__info-group{
-    display: flex;
-    flex-direction: row;
-    gap:30px;
-    align-items: center;
-    max-width: 100%;
+.profile__info-group {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: center;
+  max-width: 100%;
 }
 
 @media screen and (max-width: 870px) {
-    .profile__info-group {
-        flex-direction: column;
-        gap: 26px;
-    }
+  .profile__info-group {
+    flex-direction: column;
+    gap: 26px;
+  }
 }

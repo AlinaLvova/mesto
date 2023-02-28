@@ -1,31 +1,31 @@
 .profile__about {
-    font-family: 'Inter', Arial, Helvetica, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 18px;
-    line-height: 22px;
-    margin: 0;
-    color: #fff;
-    grid-area: about;
-    max-width: 100%;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    min-width: 20ch;
-    width: max-content;
-    text-align: left;
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  margin: 0;
+  color: #fff;
+  grid-area: about;
+  max-width: 100%;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 20ch;
+  width: max-content;
+  text-align: left;
 }
 
 @media screen and (max-width: 870px) {
-    .profile__about {
-        font-size: calc( (100vw - 320px)/(880 - 320) * (18 - 14) + 14px);
-        line-height: calc( (100vw - 320px)/(880 - 320) * (22 - 17) + 17px);
-        text-align: center;
-    }
+  .profile__about {
+    font-size: calc((100vw - 320px) / (880 - 320) * (18 - 14) + 14px);
+    line-height: calc((100vw - 320px) / (880 - 320) * (22 - 17) + 17px);
+    text-align: center;
+  }
 }
 
 @media screen and (max-width: 550px) {
-    .profile__about {
-        width: 85vw;
-    }
+  .profile__about {
+    width: 85vw;
+  }
 }

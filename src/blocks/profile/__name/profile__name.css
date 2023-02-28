@@ -1,37 +1,37 @@
 .profile__name {
-    font-style: normal;
-    font-weight: 500;
-    font-size: 42px;
-    line-height: 48px;
-    margin: 0 auto;
-    color: #fff;
-    grid-area: name;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    overflow: hidden;
-    min-width: 1ch;
-    max-width: 16ch;
-    width: max-content;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 42px;
+  line-height: 48px;
+  margin: 0 auto;
+  color: #fff;
+  grid-area: name;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  min-width: 1ch;
+  max-width: 16ch;
+  width: max-content;
 }
 
 @media screen and (max-width: 870px) {
-    .profile__name {
-        font-size: calc((100vw - 320px)/(880 - 320) * (42 - 27) + 27px);
-        line-height: calc((100vw - 320px)/(880 - 320) * (48 - 33) + 33px);
-        text-align: center;
-        max-width: 19ch;
-        min-width: 11ch;
-    }
+  .profile__name {
+    font-size: calc((100vw - 320px) / (880 - 320) * (42 - 27) + 27px);
+    line-height: calc((100vw - 320px) / (880 - 320) * (48 - 33) + 33px);
+    text-align: center;
+    max-width: 19ch;
+    min-width: 11ch;
+  }
 }
 
 @media screen and (max-width: 550px) {
-    .profile__name {
-        max-width: 15ch;
-    }
+  .profile__name {
+    max-width: 15ch;
+  }
 }
 
 @media screen and (max-width: 440px) {
-    .profile__name {
-        max-width: 13ch;
-    }
+  .profile__name {
+    max-width: 13ch;
+  }
 }

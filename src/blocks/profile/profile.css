@@ -1,23 +1,23 @@
-.profile{
-    max-width: 100%;
-    padding-top: 36px;
-    display: flex;
-    justify-content: space-between;
-    gap: 30px;
-    align-items: center;
+.profile {
+  max-width: 100%;
+  padding-top: 36px;
+  display: flex;
+  justify-content: space-between;
+  gap: 30px;
+  align-items: center;
 }
 
 @media screen and (max-width: 970px) {
-    .profile {
-        padding: 40px 19px 0;
-        max-width: 70%;
-        margin: auto;
-    }
+  .profile {
+    padding: 40px 19px 0;
+    max-width: 70%;
+    margin: auto;
+  }
 }
 
 @media screen and (max-width: 870px) {
-    .profile {
-        flex-direction: column;
-        gap: 33px;
-    }
+  .profile {
+    flex-direction: column;
+    gap: 33px;
+  }
 }
