@@ -68,42 +68,37 @@ const popupConfirmDelete = new PopupConfirm("#popup-confirmation");
 popupConfirmDelete.setEventListeners();
 
 //-----------------------------------------------------------------------------------------------------
-//является ли владельцем? is owner?
-const isOwner = (idCard) => {
-  return (idCard.owner._id === user.getUserInfo().id) ? true : false;
-}
 
 //создание карточки. _templateSelectorCard необходим для выбора типа показа карточки(горизонтального или по умолчанию)
-function createCard(dataCard, _isOwner, _templateSelectorCard) {
+function createCard(dataCard, _templateSelectorCard) {
   const card = new Card(
     dataCard,
-    _isOwner,
+    user.getUserInfo().id,
     _templateSelectorCard,
     {
       handleCardClick: (titleImage, linkImage) => {
         cardImagePopup.open(titleImage, linkImage);
       },
-      handleAddLikeClick: () => {
-        api
-          .setLike(dataCard._id)
-          .then((dataCard) => {
-            card.toggleLike();
-            card.updateCounterLikes(dataCard.likes.length);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      },
-      handleDeleteLikeClick: () => {
-        api
-          .deleteLike(dataCard._id)
-          .then((dataCard) => {
-            card.toggleLike();
-            card.updateCounterLikes(dataCard.likes.length);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
+      handleLikeClick: (isActiveButton) => {
+        if (isActiveButton) {
+          api
+            .setLike(dataCard._id)
+            .then((dataCard) => {
+              card.updateCounterLikes(dataCard.likes.length);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        } else {
+          api
+            .deleteLike(dataCard._id)
+            .then((dataCard) => {
+              card.updateCounterLikes(dataCard.likes.length);
+            })
+            .catch((error) => {
+              console.log(error.message);
+            });
+        }
       },
       handleRemoveCard: (dataCard) => {
         popupConfirmDelete.open({
@@ -131,9 +126,8 @@ function createCard(dataCard, _isOwner, _templateSelectorCard) {
 const cardList = new Section(
   {
     renderer: (item) => {
-      const _isOwner = isOwner(item);
       //создание карточки
-      const card = createCard(item, _isOwner, templateSelectorCard);
+      const card = createCard(item, templateSelectorCard);
       //добавление карточки
       cardList.addItem(card);
     },
@@ -231,7 +225,16 @@ const popupAddCardForm = new PopupWithForm({
     api
       .sentCard(data)
       .then((dataCard) => {
-        cardList.addItem(createCard(dataCard, true, templateSelectorCard));
+        cardList.addItem(createCard(dataCard, templateSelectorCard));
+      })
+      .then(() => {
+        //не закрывать попап, пока картинка не загрузится
+        const list = document.querySelector(".gallery__list");
+        const loadingCard =
+          list.firstElementChild.querySelector(".card__image");
+        loadingCard.addEventListener("load", function () {
+          popupAddCardForm.close();
+        });
       })
       .catch((error) => {
         console.log(error.message);
