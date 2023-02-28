@@ -1,17 +1,17 @@
-.card__delete{
-    display: none;
-    position: absolute;
-    padding: 0;
-    width: 18px;
-    height: 19px;
-    top: 20px;
-    right: 20px;
-    background-color: transparent;
-    border: none;
-    z-index: 5;
-    background-image: url(../../../images/trash-icon.svg);
+.card__delete {
+  display: none;
+  position: absolute;
+  padding: 0;
+  width: 18px;
+  height: 19px;
+  top: 20px;
+  right: 20px;
+  background-color: transparent;
+  border: none;
+  z-index: 5;
+  background-image: url(../../../images/trash-icon.svg);
 }
 
-.card__delete:hover{
-    opacity: 0.5;
+.card__delete:hover {
+  opacity: 0.5;
 }

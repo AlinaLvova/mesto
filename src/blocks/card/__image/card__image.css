@@ -1,8 +1,8 @@
-.card__image{
-    background-size: contain;
-    width: 282px;
-    height: 282px;
-    object-fit: cover;
-    cursor: pointer;
-    min-height: 282px;
+.card__image {
+  background-size: contain;
+  width: 282px;
+  height: 282px;
+  object-fit: cover;
+  cursor: pointer;
+  min-height: 282px;
 }

@@ -1,37 +1,37 @@
-.profile__avatar-button{
-    margin: 0;
-    padding: 0;
-    position: relative;
-    background-color: transparent;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    top: 0px;
-    right: 0px;
-    cursor: pointer;
+.profile__avatar-button {
+  margin: 0;
+  padding: 0;
+  position: relative;
+  background-color: transparent;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: 0px;
+  right: 0px;
+  cursor: pointer;
 }
 
-.profile__avatar-button::before{
-    margin: 0;
-    padding: 0;
-    content: "";
-    background-image: url("../../../images/edit-button.svg");
-    background-position: center center;
-    object-fit: cover;
-    background-repeat: no-repeat;
-    background-size: 26px 26px;
-    background-color: transparent;
-    position: absolute;
-    width: 120px;
-    height: 120px;
-    border-radius: 50%;
-    top: 0;
-    right: 0px;
-    opacity:0;
-    transition: opacity .8s ease-in-out;
+.profile__avatar-button::before {
+  margin: 0;
+  padding: 0;
+  content: "";
+  background-image: url("../../../images/edit-button.svg");
+  background-position: center center;
+  object-fit: cover;
+  background-repeat: no-repeat;
+  background-size: 26px 26px;
+  background-color: transparent;
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  top: 0;
+  right: 0px;
+  opacity: 0;
+  transition: opacity 0.8s ease-in-out;
 }
 
-.profile__avatar-button:hover::before{
-    opacity: 1;
-    z-index: 8;
+.profile__avatar-button:hover::before {
+  opacity: 1;
+  z-index: 8;
 }
