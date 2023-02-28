@@ -70,60 +70,55 @@ popupConfirmDelete.setEventListeners();
 //-----------------------------------------------------------------------------------------------------
 //является ли владельцем? is owner?
 const isOwner = (idCard) => {
-  return (idCard.owner._id === user.getUserInfo().id) ? true : false;
-}
+  return idCard.owner._id === user.getUserInfo().id ? true : false;
+};
 
 //создание карточки. _templateSelectorCard необходим для выбора типа показа карточки(горизонтального или по умолчанию)
 function createCard(dataCard, _isOwner, _templateSelectorCard) {
-  const card = new Card(
-    dataCard,
-    _isOwner,
-    _templateSelectorCard,
-    {
-      handleCardClick: (titleImage, linkImage) => {
-        cardImagePopup.open(titleImage, linkImage);
-      },
-      handleAddLikeClick: () => {
-        api
-          .setLike(dataCard._id)
-          .then((dataCard) => {
-            card.toggleLike();
-            card.updateCounterLikes(dataCard.likes.length);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      },
-      handleDeleteLikeClick: () => {
-        api
-          .deleteLike(dataCard._id)
-          .then((dataCard) => {
-            card.toggleLike();
-            card.updateCounterLikes(dataCard.likes.length);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
-      },
-      handleRemoveCard: (dataCard) => {
-        popupConfirmDelete.open({
-          handleSubmit: () => {
-            api
-              .deleteCard(dataCard)
-              .then(() => {
-                card.delete();
-              })
-              .catch((error) => {
-                console.log(error.message);
-              })
-              .finally(() => {
-                popupConfirmDelete.close();
-              });
-          },
+  const card = new Card(dataCard, _isOwner, _templateSelectorCard, {
+    handleCardClick: (titleImage, linkImage) => {
+      cardImagePopup.open(titleImage, linkImage);
+    },
+    handleAddLikeClick: () => {
+      api
+        .setLike(dataCard._id)
+        .then((dataCard) => {
+          card.toggleLike();
+          card.updateCounterLikes(dataCard.likes.length);
+        })
+        .catch((error) => {
+          console.log(error.message);
         });
-      },
-    }
-  );
+    },
+    handleDeleteLikeClick: () => {
+      api
+        .deleteLike(dataCard._id)
+        .then((dataCard) => {
+          card.toggleLike();
+          card.updateCounterLikes(dataCard.likes.length);
+        })
+        .catch((error) => {
+          console.log(error.message);
+        });
+    },
+    handleRemoveCard: (dataCard) => {
+      popupConfirmDelete.open({
+        handleSubmit: () => {
+          api
+            .deleteCard(dataCard)
+            .then(() => {
+              card.delete();
+            })
+            .catch((error) => {
+              console.log(error.message);
+            })
+            .finally(() => {
+              popupConfirmDelete.close();
+            });
+        },
+      });
+    },
+  });
   return card.generate();
 }
 
