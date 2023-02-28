@@ -1,21 +1,22 @@
 export default class Card {
   constructor(
     data,
-    idOwner,
+    isOwner,
     templateSelector,
-    { handleCardClick, handleRemoveCard, handleLikeClick }
+    { handleCardClick, handleRemoveCard, handleAddLikeClick, handleDeleteLikeClick }
   ) {
     this._name = data.name;
     this._link = data.link;
     this._likes = data.likes;
     this._id = data._id;
     this._owner = data.owner;
-    this._idOwner = idOwner;
+    this._isOwner = isOwner;
     this._templateSelector = templateSelector;
     //функция открытия попапа с картинкой по клику на карточку
     this._handleCardClick = handleCardClick;
-    this._handleLikeClick = handleLikeClick;
+    this._handleAddLikeClick = handleAddLikeClick;
     this._handleRemoveCard = handleRemoveCard;
+    this._handleDeleteLikeClick = handleDeleteLikeClick;
     this._remove = this._remove.bind(this);
   }
 
@@ -29,7 +30,7 @@ export default class Card {
   }
 
   //функция обработчика нажатия на лайк карточки
-  _toggleLike() {
+  toggleLike() {
     this._likeButton.classList.toggle("card__like_active");
   }
 
@@ -50,8 +51,8 @@ export default class Card {
 
   //отрисовка лайков у тех карточек, которые понравились пользователю
   _renderLikeIcon() {
-    this._likes.forEach((user) => {
-      if (this._idOwner === user._id) {
+    this._likes.forEach(() => {
+      if (this._isOwner) {
         this._element
           .querySelector(".card__like")
           .classList.add("card__like_active");
@@ -61,14 +62,17 @@ export default class Card {
 
   _setEventListener() {
     this._likeButton.addEventListener("click", () => {
-      this._toggleLike();
-      const isActiveLike =
-        this._likeButton.classList.contains("card__like_active");
-      this._handleLikeClick(isActiveLike);
+      if (this._likeButton.classList.contains("card__like_active"))
+        this._handleDeleteLikeClick();
+      else
+        this._handleAddLikeClick();
     });
     this._cardImage.addEventListener("click", () => {
       this._handleCardClick(this._name, this._link);
     });
+    this._cardImage.addEventListener('error', (error) => {
+      this._cardImage.src = require('../images/404-Page.jpg');
+    })
   }
 
   getCard() {
@@ -77,7 +81,7 @@ export default class Card {
 
   //отрисовать иконку "удалить" только у карточек владельца
   _renderTrashIcon() {
-    if (this._idOwner === this._owner._id) {
+    if (this._isOwner) {
       this._deleteButton = this._element.querySelector(".card__delete");
       this._deleteButton.classList.add("card__delete_active");
       this._deleteButton.addEventListener("click", () => {
