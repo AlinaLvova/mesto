@@ -227,6 +227,7 @@ const popupAddCardForm = new PopupWithForm({
       .sentCard(data)
       .then((dataCard) => {
         cardList.addItem(createCard(dataCard, true, templateSelectorCard));
+        popupAddCardForm.close();
       })
       .catch((error) => {
         console.log(error.message);
